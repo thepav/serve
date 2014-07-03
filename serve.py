@@ -14,7 +14,7 @@ def hello():
 	stuff2 = os.popen("jobs -l").read()
  	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
  	
-	print stuff2
+	#print stuff2
  	# python -m simplehttpserver_test/server.py 80
 	return stuff2
 
