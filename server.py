@@ -7,8 +7,9 @@ class MyRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
             self.path = '/yolo.png'
         return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
-Handler = MyRequestHandler
-server = SocketServer.TCPServer(('0.0.0.0', 6000), Handler)
+def run(port):
+	Handler = MyRequestHandler
+	server = SocketServer.TCPServer(('0.0.0.0', port), Handler)
 
-server.serve_forever()
+	server.serve_forever()
 
