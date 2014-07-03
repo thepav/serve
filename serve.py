@@ -11,6 +11,7 @@ def hello():
     #    return render_template('process.html', username=username)
  	os.popen("python -m server.py 7000 &")
  	stuff2 = os.popen("jobs -l").read()
+ 	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
  	
 	print stuff2
  	# python -m simplehttpserver_test/server.py 80
