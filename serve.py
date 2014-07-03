@@ -9,7 +9,8 @@ def hello():
 	#convert hash to username
 	# username = getUsername(userHash)
     #    return render_template('process.html', username=username)
- 	stuff = os.popen("python -m simplehttpserver_test/server.py 7000").read()
+ 	stuff = os.popen("ps").read()
+ 	# python -m simplehttpserver_test/server.py 80
 	return stuff
 
 def getUsername(userHash):
