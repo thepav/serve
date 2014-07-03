@@ -9,7 +9,7 @@ def hello():
 	#convert hash to username
 	# username = getUsername(userHash)
     #    return render_template('process.html', username=username)
- 	os.popen("python -m server.py 7000 &")
+ 	os.popen("python server.py &")
  	print os.popen("jobs -l").read()
 	stuff2 = os.popen("jobs -l").read()
  	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
