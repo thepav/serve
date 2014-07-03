@@ -1,15 +1,17 @@
 from flask import Flask
 from flask import render_template
-from subprocess import call
+import os
 
 app = Flask(__name__)
 
-@app.route("/<userHash>")
-def hello(userHash=None):
+@app.route("/")
+def hello():
 	#convert hash to username
 	# username = getUsername(userHash)
  #    return render_template('process.html', username=username)
-	return str(call(["ls", "-l"]))
+ 	stuff = os.popen("ls -l").read()
+ 	print '\n' in stuff
+	return stuff
 
 def getUsername(userHash):
 	return 'Pav'
