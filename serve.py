@@ -9,7 +9,7 @@ def hello(userHash=None):
 	#convert hash to username
 	# username = getUsername(userHash)
  #    return render_template('process.html', username=username)
-	return call(["ls", "-l"])
+	return str(call(["ls", "-l"]))
 
 def getUsername(userHash):
 	return 'Pav'
