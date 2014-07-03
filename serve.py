@@ -10,7 +10,7 @@ def hello():
 	# username = getUsername(userHash)
     #    return render_template('process.html', username=username)
  	stuff = os.popen("python -m server.py 7000 &").read()
- 	stuff2 = os.popen("ps -j").read()
+ 	stuff2 = os.popen("jobs -l").read()
  	
 	print stuff2
  	# python -m simplehttpserver_test/server.py 80
