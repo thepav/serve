@@ -19,5 +19,5 @@ def getUsername(userHash):
 	return 'Pav'
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+    serve.debug = True
+    serve.run()

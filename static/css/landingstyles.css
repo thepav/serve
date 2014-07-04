@@ -12,7 +12,10 @@ video #bgvid {
     z-index: 2;
 }
 .filler{
-    height: 200px;
+    height: 170px;
+}
+.small-filler{
+    height: 30px;
 }
 .blue{
     /*background: rgba(0,0,255,0.82);*/
@@ -21,7 +24,8 @@ video #bgvid {
     z-index: 2;
 }
 .navoption{
-    margin: 10px;
+    padding: 10px;
+    margin: 0px;
 }
 .about{
     display: inline;
@@ -31,4 +35,12 @@ video #bgvid {
 }
 .signup{
     display: inline;
+}
+.navoption:hover{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+}
+.big-title{
+    padding-top: 50px;
 }
