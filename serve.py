@@ -14,10 +14,6 @@ def hello():
 	stuff2 = os.popen("ps -fA | grep python").read().replace('\n','<br>')
  	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
 	return render_template('index.html', stuff=stuff2)
- 	
-	#print stuff2
- 	# python -m simplehttpserver_test/server.py 80
-	return stuff2
 
 def getUsername(userHash):
 	return 'Pav'
