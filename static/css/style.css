@@ -1,0 +1,61 @@
+@font-face {
+    font-family: "My Custom Font";
+    src: url(https://www.google.com/fonts#UsePlace:use/Collection:Open+Sans) format("truetype");
+}
+body,html{
+	min-width: 100%; 
+	min-height: 100%;
+	font-family: "My Custom Font", Verdana, Tahoma;
+}
+video#bgvid {
+	position: fixed; right: 0; bottom: 0;
+	padding: 0px;
+	min-width: 100%; 
+	min-height: 100%;
+	width: auto; height: auto; 
+	z-index: -100;
+	background: url("{{url_for('static', filename='header.jpg')}}") no-repeat;
+	background-size: cover;
+}
+.blur{
+   width: 100%;
+   height: 100%;
+   z-index: -1;
+   position: fixed;
+   background: #FFF;
+   top: 0;
+   filter:blur(20px);
+     -o-filter:blur(20px);
+     -ms-filter:blur(20px);
+     -moz-filter:blur(20px);
+     -webkit-filter:blur(20px);
+}
+#outer{
+	display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+header{
+	vertical-align: middle;
+	color:white;
+	text-align: center;
+	margin-top: 20%;
+}
+h1{
+	font-size: 10em;
+	margin: 0px;
+}
+.fullscreen{
+	position: fixed; right: 0; bottom: 0;
+	padding: 0px;
+	margin: 0px;
+	background-color: #3498db;
+	height: 100%;
+	width: 100%;
+	opacity: .5;
+	z-index: -90;
+
+}
