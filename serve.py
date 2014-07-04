@@ -13,7 +13,7 @@ def hello():
  	subprocess.call(['python server.py &'], shell=True)
 
  	print os.popen("jobs -l").read()
-	stuff2 = os.popen("ps -fA | grep python").read()
+	stuff2 = os.popen("ps -fA | grep python").read().replace('\n','<br>')
  	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
  	
 	#print stuff2
