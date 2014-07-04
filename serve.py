@@ -3,9 +3,9 @@ from flask import render_template
 import os
 import subprocess
 
-serve_app = Flask(__name__)
+serve = Flask(__name__)
 
-@app.route("/")
+@serve.route("/")
 def hello():
 	#convert hash to username
 	# username = getUsername(userHash)
