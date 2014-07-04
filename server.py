@@ -9,7 +9,7 @@ class MyRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
 
 Handler = MyRequestHandler
-server = SocketServer.TCPServer(('0.0.0.0', 6000), Handler)
+server = SocketServer.TCPServer(('0.0.0.0', 8000), Handler)
 
 server.serve_forever()
 

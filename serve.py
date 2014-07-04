@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template
 import os
-import server
+import subprocess
 
 app = Flask(__name__)
 
@@ -10,10 +10,10 @@ def hello():
 	#convert hash to username
 	# username = getUsername(userHash)
     #    return render_template('process.html', username=username)
- 	os.spawn1(os.P_DETACH, "python server.py")
+ 	subprocess.call(['python server.py &'], shell=True)
 
  	print os.popen("jobs -l").read()
-	stuff2 = os.popen("jobs -l").read()
+	stuff2 = os.popen("ps -fA | grep python").read()
  	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
  	
 	#print stuff2
