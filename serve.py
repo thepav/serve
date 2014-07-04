@@ -3,7 +3,7 @@ from flask import render_template
 import os
 import subprocess
 
-app = Flask(__name__)
+serve_app = Flask(__name__)
 
 @app.route("/")
 def hello():
