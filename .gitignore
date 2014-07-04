@@ -2,4 +2,3 @@ venv
 *.pyc
 .DS_Store
 *.mov
-*.jpg
