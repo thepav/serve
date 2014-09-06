@@ -35,7 +35,7 @@ def auth():
 			password = request.form['password']
 
 			user = User.objects(email=email, password=password)
-			return str(user) +'<br>'+ email+'<br>'+password
+			return str(user) +'<br>'+ email+'<br>'+password + '<br>' + User.objects()
 			#return redirect(url_for('gallery',pk=user.id));
     	else:
 			return render_template('login_failed.html');
