@@ -130,7 +130,7 @@ def dashboard(appid):
 
 
 
-@serve.route('/run/<functionid>/')
+@serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
 	print 'something fucking happened' 	
 	print 'got here too'
@@ -166,20 +166,13 @@ def run(functionid): #need userid,appid,functionid
 		firstline += param +'='+values[param] + '\n'
 	code = firstline + sansfirstline +lastline
 	print '\n\n'+code+'\n\n'
-	f = open('codey.py','w')
-	f.close()
+
 	f = open('codey.py','w')
 	f.write(code)
 	f.close()
 	print '\n\n codey.py created. \n\n'
 	
-	f = open('Dockerfile','w')
-	f.write('FROM python \n ADD ./codey.py /usr/src/python/codey.py')
-	f.close()
-	import time
-	time.sleep(.5)
-	subprocess.call('sudo docker build -t imagedoe .')
-	subprocess.call('sudo docker run imagedoe codey.py > out.txt 2>&1')
+	subprocess.call('sudo docker run -v /home/azureuser/serve/codey.py:/usr/src/python/codey.py python python codey.py > out.txt 2>&1')
 	
 	print ('\n\n Docker shit doneski. \n\n')
 
