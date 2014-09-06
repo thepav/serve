@@ -1,11 +1,8 @@
-@font-face {
-    font-family: "My Custom Font";
-    src: url(https://www.google.com/fonts#UsePlace:use/Collection:Open+Sans) format("truetype");
-}
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,600,300);
 body,html{
 	min-width: 100%; 
 	min-height: 100%;
-	font-family: "My Custom Font", Verdana, Tahoma;
+	font-family: "Open Sans", Verdana, Tahoma;
 }
 video#bgvid {
 	position: fixed; right: 0; bottom: 0;
