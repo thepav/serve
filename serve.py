@@ -129,6 +129,20 @@ def dashboard(appid):
 	return render_template("dashboard.html", app=theapp, functions=Function.objects(AppId=str(theapp.id)))
 
 
+@serve.route('/updateFunc/', methods=['POST'])
+def updateApp():
+	if request.method == 'POST':
+		appid = request.form['appid']
+		newName = request.form['name']
+		theapp = None #hacky way to deal with stringification
+		for app in App.objects:
+			print(app.id)
+			if str(app.id) == appid:
+				theapp = app
+		theapp.name = newName
+		theapp.save()
+		return redirect(url_for("dashboard", appid=theapp.id))
+
 
 @serve.route('/run/<functionid>/')
 def run(functionid): #need userid,appid,functionid

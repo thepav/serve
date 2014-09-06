@@ -33,18 +33,20 @@
                 })
             };
 
-            function nameChange(e){
-                $(e.target).replaceWith("<input ondblclick='name()' style='background-color:rgba(0,0,0,0.0)' type='text' value="+e.target.innerHTML+">");
-            };
-
-            function name(){
+            function myname(event){
                 $.ajax({
                     method: "POST",
-                    url: "{{url_for('newFunc')}}",
-                    data: {},
+                    url: "{{url_for('updateApp')}}",
+                    data: {appid: "{{app.id}}", name: event.target.value},
                     success: location.reload()
                 })
             };
+
+            function nameChange(e){
+                $(e.target).replaceWith("<input ondblclick=\"myname(event);\" style='background-color:rgba(0,0,0,0.0)' type='text' value="+e.target.innerHTML+">");
+            };
+
+            
         </script>
     </head>
     <body>
@@ -54,7 +56,7 @@
 
                 <div class="top">
                 <div id="logo">
-                    <h2>Serve</h2>
+                    <h2><a href="{{url_for('gallery', pk=app.userId)}}">Serve</a></h2>
                 </div>
 
 
@@ -74,9 +76,9 @@
                             
                             -->
                             <ul>
-                                <li><a id="top-link" href="#" onclick="nameChange(event)" class="skel-layers-ignoreHref">{{app.name}}</a></li>
+                                <li><a id="top-link" href="#" onclick="nameChange(event);" class="skel-layers-ignoreHref">{{app.name}}</a></li>
                                 <li><a id="portfolio-link" href="#"  class="skel-layers-ignoreHref">{{app.language}}</a></li>
-                                <li><a id="about-link" href="#" onclick="newFunc()" class="skel-layers-ignoreHref">{{app.numberFunc}}  +</a></li>
+                                <li><a id="about-link" href="#" onclick="newFunc();" class="skel-layers-ignoreHref">{{app.numberFunc}}  +</a></li>
                             </ul>
                         </nav>
                         
