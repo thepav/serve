@@ -59,13 +59,14 @@ def newSignup():
 		user = User(email=email, password=password,name=name)
 		print '4'
 		user.save()
-		print '5'
+		print 'done signup'
 		return redirect(url_for('gallery'),pk=user._id);
 	else:
 		redirect(url_for('signup'))
 		
 @serve.route('/gallery/<pk>')
 def gallery(pk):
+	print "FUCK MEEE"
 	return str(pk);
 
 
