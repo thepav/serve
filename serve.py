@@ -80,9 +80,9 @@ def gallery(pk):
 		appDict['name'] = app.name
 		appDict['numberFunc'] = app.numberFunc
 		appDict['language'] = app.language
-		app.append(appDict)
+		appDict['id'] = app.id
+		apps.append(appDict)
 
-	apps = [{"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}]
 	return render_template('gallery.html', apps=apps,userid=pk)
 
 @serve.route('/new_app/', methods=['POST'])
@@ -114,6 +114,15 @@ def newFunc():
 
 		return redirect(url_for('gallery', pk = userId))
 	os.popen('')
+
+@serve.route('/dash/<appid>', methods=['GET', 'POST'])
+def dashboard(appid):
+	if request.method == 'GET':
+		for app in App.objects:
+			if app.id == appid:
+				theapp = app
+		return render_template("dashboard.html", app=app)
+
 
 
 @serve.route('/run/', methods=['GET'])

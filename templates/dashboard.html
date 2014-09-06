@@ -14,23 +14,16 @@
         </div>
         <div class="row">
             <div class="col-sm-1 col-sm-2 col-xs-2">
-                <a href = "{{url_for('gallery')}}" class="link"><div class="navoption login">Gallery</div></a>
+                <a href = "/gallery/{{app.userId}}" class="link"><div class="navoption login">Gallery</div></a>
             </div>
             <div class="col-sm-1 col-sm-2 col-xs-3">
                 <a href = "{{url_for('signup')}}" class="link"><div class="navoption signup">SignUp</div></a>
             </div>
         </div>
-        <div id="left" class="col-md-4">
-            <center><h2>{name}</h2></center>
+        <div class="row">
+            <div id="left" class="col-md-4">
+                <center><h2>{{app.name}}</h2></center>
+            </div>
         </div>
-        <div id="editor" class="col-md-8">
-            {content}
-        </div>
-
-        <script>
-            var editor = ace.edit("editor");
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/{language}");
-        </script>
 </body>
 </html>
