@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:700,400,600,300);
+
 body,html{
 	min-width: 100%; 
 	min-height: 100%;
@@ -58,6 +59,18 @@ h1{
 }
 .centerbox{
 	width: 50%;
-	left-margin: 25%;
+	margin-right: auto;
+    margin-left: auto;
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+.link {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.link:hover {
+    text-decoration: none !important;
 }
 

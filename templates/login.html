@@ -24,15 +24,15 @@
                 <div class="navoption about">About</div>
             </div>
             <div class="col-sm-1 col-sm-2 col-xs-2">
-                <a href = "{{url_for('login')}}"><div class="navoption login">Login</div></a>
+                <a href = "{{url_for('login')}}" class="link"><div class="navoption login">Login</div></a>
             </div>
             <div class="col-sm-1 col-sm-2 col-xs-3">
-                <a href = "{{url_for('signup')}}"><div class="navoption signup">SignUp</div></a>
+                <a href = "{{url_for('signup')}}" class="link"><div class="navoption signup">SignUp</div></a>
             </div>
         </div>
 
     <div class='centerbox'>
-        <h2>Login</h2>
+        <center><h2>Login</h2></center>
         <form id="login" role="form" lass="form-horizontal" method='post' action="{{url_for('auth')}}">
             <div class="form-group">
                 <div class="form-group">
@@ -47,9 +47,11 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
                 </div>
-                <button type="button" class="btn btn-default" form="login">Login</button>
             </div>
         </form>
+        <br>&nbsp;
+        <center><div class="navoption login" onclick="$('#login').submit()"><a class="link" href="#">Login</a></div></center>
+        <br>&nbsp;
     </div>
     <div class='fullscreen'></div>
     <video autoplay loop poster="{{url_for('static', filename='images/header.jpg')}}" id="bgvid" muted>    

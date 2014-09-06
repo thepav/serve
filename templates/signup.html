@@ -24,39 +24,47 @@
                 <div class="navoption about">About</div>
             </div>
             <div class="col-sm-1 col-sm-2 col-xs-2">
-                <a href = "{{url_for('login')}}"><div class="navoption login">Login</div></a>
+                <a href = "{{url_for('login')}}" class="link"><div class="navoption login">Login</div></a>
             </div>
             <div class="col-sm-1 col-sm-2 col-xs-3">
-                <a href = "{{url_for('signup')}}"><div class="navoption signup">SignUp</div></a>
+                <a href = "{{url_for('signup')}}" class="link"><div class="navoption signup">SignUp</div></a>
             </div>
-        </div>
 
-    <div class='centerbox'>
-        <center><h2>Register</h2></center>
-        <center>Its quick and painless, just like Serve.</center>
-        <form id="register" role="form" lass="form-horizontal" method='post' action="{{url_for('signup')}}">
-            <div class="form-group">
+        <div class='centerbox'>
+            <center><h2>Register</h2></center>
+            <center>Its quick and painless, just like Serve.</center>
+            <form id="register" role="form" lass="form-horizontal" method='post' action="{{url_for('signup')}}">
                 <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">Email</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="col-sm-2 control-label">Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="name" class="form-control" id="name" name="name" placeholder="Name">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="confirm" class="col-sm-2 control-label">Confirm</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Confirm Password">
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label for="confirm" class="col-sm-2 control-label">Confirm</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <br>&nbsp;
+                    <center><div class="navoption login" onclick="$('#register').submit()"><a class="link" href="#">Join us!</a></div></center>
+                    <br>&nbsp;
                 </div>
-                <button type="button" class="btn btn-default" form="register">Register!</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
 
