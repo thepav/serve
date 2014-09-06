@@ -75,7 +75,7 @@ def newSignup():
 def gallery(pk):
 	# give me something like this, where apps are all of the user's active apps
 	apps = []
-	for app in App.objects:
+	for app in App.objects(userId=pk):
 		appDict = {}
 		appDict['name'] = app.name
 		appDict['numberFunc'] = app.numberFunc
