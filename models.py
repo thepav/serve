@@ -12,5 +12,4 @@ class App(db.Document):
 class Function(db.Document):
 	AppId = db.StringField(required=True)
 	code = db.StringField(required=True)
-	dependancies =  ListField(StringField(max_length=30)) #has a list of other function IDs
-	
+	dependancies =  db.ListField(db.StringField(max_length=30)) #has a list of other function IDs
