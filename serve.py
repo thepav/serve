@@ -48,6 +48,16 @@ def login():
 def signup():
         return render_template('signup.html')
 
+@serve.route('/new_signup/')
+def newSignup():
+	email = request.form['email']
+	password = request.form['password']
+	name = request.form['name']
+	user = User(email=email, password=password,name=name)
+	user.save()
+
+	return redirect(url_for('dashboard'),pk=user._id);
+
 @serve.route('/dashboard/<pk>')
 def dashboard(pk):
 	return pk;
