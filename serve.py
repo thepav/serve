@@ -115,6 +115,15 @@ def newFunc():
 		return redirect(url_for('gallery', pk = userId))
 	os.popen('')
 
+@serve.route('/dash/<appid>', methods=['GET', 'POST'])
+def dashboard(appid):
+	if request.method == 'GET':
+		for app in App.objects:
+			if app.id == appid:
+				theapp = app
+		return render_template("dashboard.html", app=app)
+
+
 
 @serve.route('/run/', methods=['GET'])
 def run(): #need userid,appid,functionid

@@ -35,7 +35,8 @@
                     $.ajax({
                         type: "POST",
                         url: "{{url_for('newApp')}}",
-                        data: {userid: "{{userid}}", name: "new_function"}
+                        data: {userid: "{{userid}}", name: "new_function"},
+                        success: location.reload()
                     })
                 }
             </script>

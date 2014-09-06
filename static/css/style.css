@@ -154,3 +154,7 @@ label {
     background-color: #dde4e6;
     font-size: 20pt;
 }
+
+#editor {
+    min-height: 300px;
+}
