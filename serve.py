@@ -107,7 +107,7 @@ def newFunc():
 		name = request.form['name']
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
-
+		appdoe.save()
 		function = Function(AppId=AppId, userId=userId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
