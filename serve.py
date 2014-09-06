@@ -106,14 +106,13 @@ def newFunc():
 		code = request.form['code'].strip()
 		dockerImID = request.form['dockerImID']
 		name = request.form['name']
-		appdoe = App.objects(id=AppId)
+		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 
 		function = Function(userId=userId, AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
-	os.popen('')
 
 @serve.route('/dash/<appid>', methods=['GET', 'POST'])
 def dashboard(appid):

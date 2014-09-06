@@ -33,8 +33,17 @@
             };
 
             function nameChange(e){
-                $(e.target).html("<input style='background-color:rgba(0,0,0,0.1)' type='text' value="+e.target.innerHTML+">");
-            }
+                $(e.target).replaceWith("<input ondblclick='name()' style='background-color:rgba(0,0,0,0.0)' type='text' value="+e.target.innerHTML+">");
+            };
+
+            function name(){
+                $.ajax({
+                    method: "POST",
+                    url: "{{url_for('newFunc')}}",
+                    data: {},
+                    success: location.reload()
+                })
+            };
         </script>
     </head>
     <body>
@@ -80,20 +89,13 @@
 
                 <!-- Intro -->
                     <section id="top" class="one dark cover">
-                        <div class="container">
-
-                            <header>
-                                <h2 class="alt">Hi! I'm <strong>Prologue</strong>, a <a href="http://html5up.net/license">free</a> responsive<br />
-                                site template designed by <a href="http://html5up.net">HTML5 UP</a>.</h2>
-                                <p>Ligula scelerisque justo sem accumsan diam quis<br />
-                                vitae natoque dictum sollicitudin elementum.</p>
-                            </header>
-                            
-                            <footer>
-                                <a href="#portfolio" class="button scrolly">Magna Aliquam</a>
-                            </footer>
-
-                        </div>
+                        <form method="post" action="{{url_for('newFunc')}}">
+                            <textarea name="code">
+                            </textarea>
+                            <input type="text" placeholder="name" name="name">
+                            <input type="text" hidden value="{{app.id}}" name="appid">
+                            <input type="submit">
+                        </form>
                     </section>
                     
                 <!-- Portfolio -->
