@@ -98,19 +98,26 @@ def newApp():
 	else:
 		return str(404)
 
-@serve.route('/newfunc/<userid>/<appid>/<functionid>/',methods=['POST'])
-def newFunc(userid,appid,functionid):
+@serve.route('/newfunc/',methods=['POST'])
+def newFunc():
 	if request.method == 'POST':
+		userId = request.form['userid']
 		AppId = request.form['appid']
 		code = request.form['code']
-		daApp = App(userId=userId, name=name, numberFunc=numberFunc,language=language)
-		daApp.save()
+		dockerContID = request.form['dockerContID']
+
+		function = Function(AppId=AppId, dockerContID=dockerContID) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function.save()
+		funcId = function.id
+
+		
+
 		return redirect(url_for('gallery', pk = userId))
 	os.popen('')
 
 
-@serve.route('/run/<userid>/<appid>/<functionid>/', methods=['GET'])
-def run(userid,appid,functionid):
+@serve.route('/run/', methods=['GET'])
+def run(): #need userid,appid,functionid
 	return str(404)
 
 
