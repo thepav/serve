@@ -101,15 +101,13 @@ def newApp():
 @serve.route('/newfunc/',methods=['POST'])
 def newFunc():
 	if request.method == 'POST':
-		userId = request.form['userid']
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
-		dockerImID = request.form['dockerImID']
 		name = request.form['name']
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 
-		function = Function(userId=userId, AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function = Function( AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
@@ -132,16 +130,36 @@ def run(): #need userid,appid,functionid
 		function = Function.objects(id=functionid)
 		code = function.code
 		params = parseCode(code)
+		values = {}
+		for param in params:
+			values[param] = request.form[param]
 
+		sansfirstline = '\n'.join(code.split('\n')[1:-1]) # and last row
+		sansfirstline = textwrap.dedent(sansfirstline)
+		lastline = code.split('\n')[-1]
+		lastline = lastline.replace('return', 'print')
+
+		firstline = ''
+		for param in params:
+			firstline += param +'='+values[param] + '\n'
+		code = firstline + sansfirstline +lastline
+
+		os.popen('rm code.py');
+		f = open('code.py','w')
+		f.write(code)
+		f.close()
 
 
 		os.popen('rm Dockerfile');
 		f = open('Dockerfile','w')
 		f.write('FROM python \n ADD ./code.py /usr/src/python/code.py')
 		f.close()
-		os.popen('sudo docker build -t imagedoe .')
+		os.popen('sudo docker build -t imagedoe . & sudo docker run imagedoe code.py > out.txt')
 
-		return str(404)
+		f = open('out.txt','r')
+		result = f.read().strip()
+
+		return result
 
 def parseCode(code):
 	import StringIO
