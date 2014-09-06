@@ -4,6 +4,7 @@ import os
 import subprocess
 from flask.ext.mongoengine import MongoEngine
 from models import *
+from pprint import pprint
 
 db = MongoEngine()
 
@@ -94,6 +95,8 @@ def newApp():
 		language = 'Python'
 		daApp = App(userId=userId, name=name, numberFunc=numberFunc,language=language)
 		daApp.save()
+		function = Function(AppId=str(daApp.id), userId=userId, name="HelloWorld.py", code="print(\"hello world\")")
+		function.save()
 		return redirect(url_for('gallery', pk = userId))
 	else:
 		return str(404)
@@ -113,27 +116,27 @@ def newFunc():
 
 		return redirect(url_for('gallery', pk = userId))
 
-@serve.route('/dash/<appid>', methods=['GET', 'POST'])
+@serve.route('/dash/<appid>/')
 def dashboard(appid):
 	if request.method == 'GET':
 		theapp = None
 		for app in App.objects:
-			if app.id == appid:
+			print(app.id)
+			if str(app.id) == appid:
 				theapp = app
-	if theapp is not None:
-		return render_template("dashboard.html", app=theapp, functions=Function(appid=theapp.id))
-	else:
-		raise AssertionError
+	x = Function.objects(AppId=str(theapp.id))
+	pprint(list(x))
+	return render_template("dashboard.html", app=theapp, functions=Function.objects(AppId=str(theapp.id)))
 
 
 
-@serve.route('/run/<functionid>')
+@serve.route('/run/<functionid>/')
 def run(functionid): #need userid,appid,functionid
 	print 'something fucking happened' 	
 	print 'got here too'
 	#functionid = request.form['functionid']
 	print 'but probably not here'
-	function = Function.objects(id=functionid)
+	function = Function.objects(id=str(functionid))
 	print '\n\n'+function+'\n\n'
 	code = function.code
 	params = parseCode(code)
