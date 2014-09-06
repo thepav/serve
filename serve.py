@@ -47,16 +47,19 @@ def login():
 def signup():
         return render_template('signup.html')
 
-@serve.route('/new_signup/', methods='POST')
+@serve.route('/new_signup/', methods=['POST'])
 def newSignup():
-	email = request.form['email']
-	password = request.form['password']
-	name = request.form['name']
-	user = User(email=email, password=password,name=name)
-	user.save()
+	if request.method == 'POST':
+		email = request.form['email']
+		password = request.form['password']
+		name = request.form['name']
+		user = User(email=email, password=password,name=name)
+		user.save()
 
-	return redirect(url_for('gallery'),pk=user._id);
-
+		return redirect(url_for('gallery'),pk=user._id);
+	else:
+		redirect(url_for('signup'))
+		
 @serve.route('/gallery/<pk>')
 def dashboard(pk):
 	return pk;
