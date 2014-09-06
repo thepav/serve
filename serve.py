@@ -74,6 +74,14 @@ def newSignup():
 @serve.route('/gallery/<pk>',)
 def gallery(pk):
 	# give me something like this, where apps are all of the user's active apps
+	apps = []
+	for app in App.objects:
+		appDict = {}
+		appDict['name'] = app.name
+		appDict['numberFunc'] = app.numberFunc
+		appDict['language'] = app.language
+		app.append(appDict)
+
 	apps = [{"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}]
 	return render_template('gallery.html', apps=apps,userid=pk)
 
