@@ -35,8 +35,8 @@ def auth():
 			password = request.form['password']
 
 			user = User.objects(email=email, password=password)
-
-			return redirect(url_for('gallery',pk=user.id));
+			return str(user)
+			#return redirect(url_for('gallery',pk=user.id));
     	else:
 			return render_template('login_failed.html');
 @serve.route('/login/')
