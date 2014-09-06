@@ -65,7 +65,7 @@ def newSignup():
 		redirect(url_for('signup'))
 		
 @serve.route('/gallery/<pk>')
-def dashboard(pk):
+def gallery(pk):
 	return str(pk);
 
 
