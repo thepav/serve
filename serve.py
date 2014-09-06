@@ -33,11 +33,10 @@ def auth():
 	if request.method == 'POST':
 			email = request.form['email']
 			password = request.form['password']
-			name = request.form['name']
-			user = User(email=email, password=password,name=name)
-			user.save()
 
-			return redirect(url_for('dashboard'),pk=user._id);
+			user = User.objects(email=email, password=password)
+
+			return redirect(url_for('gallery'),pk=user._id);
     	else:
 			return render_template('login_failed.html');
 @serve.route('/login/')
@@ -56,9 +55,9 @@ def newSignup():
 	user = User(email=email, password=password,name=name)
 	user.save()
 
-	return redirect(url_for('dashboard'),pk=user._id);
+	return redirect(url_for('gallery'),pk=user._id);
 
-@serve.route('/dashboard/<pk>')
+@serve.route('/gallery/<pk>')
 def dashboard(pk):
 	return pk;
 
