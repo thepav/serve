@@ -77,10 +77,9 @@ def gallery(pk):
 	apps = [{"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}]
 	return render_template('gallery.html', apps=apps)
 
-
-
-
-
+@serve.route('/new_app/', methods=['GET', 'POST'])
+def newApp():
+	return render_template("login.html")
 
 
 
