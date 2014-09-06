@@ -2,19 +2,20 @@ from flask import Flask
 from flask import render_template, url_for, redirect, abort, request
 import os
 import subprocess
-#from flask.ext.mongoengine import MongoEngine
+from flask.ext.mongoengine import MongoEngine
+from models import *
 
-#db = MongoEngine()
+db = MongoEngine()
 
 serve = Flask(__name__)
 #serve.config.from_pyfile('the-config.cfg')
-#serve.config['MONGODB_SETTINGS'] = {
-#    'db': 'test',
-#    'host': 'localhost',
-#    'port': 27017
-#}
+serve.config['MONGODB_SETTINGS'] = {
+    'db': 'test',
+    'host': 'localhost',
+    'port': 27017
+}
 
-#db.init_app(serve)
+db.init_app(serve)
 
 
 @serve.route("/")
@@ -30,11 +31,15 @@ def hello():
 @serve.route("/auth/", methods='POST')
 def auth():
 	if request.method == 'POST':
-        	user = request.form['user']
-		password = request.form['pass']
-		
+			email = request.form['email']
+			password = request.form['password']
+			name = request.form['name']
+			user = User(email=email, password=password,name=name)
+			user.save()
+
+			return redirect(url_for('dashboard'),pk=user._id);
     	else:
-		return render_template('login_failed.html');
+			return render_template('login_failed.html');
 @serve.route('/login/')
 def login():
 	return render_template('login.html')
@@ -42,6 +47,23 @@ def login():
 @serve.route('/signup/')
 def signup():
         return render_template('signup.html')
+
+@serve.route('/new_signup/')
+def newSignup():
+	email = request.form['email']
+	password = request.form['password']
+	name = request.form['name']
+	user = User(email=email, password=password,name=name)
+	user.save()
+
+	return redirect(url_for('dashboard'),pk=user._id);
+
+@serve.route('/dashboard/<pk>')
+def dashboard(pk):
+	return pk;
+
+
+
 
 
 
