@@ -2,19 +2,19 @@ from flask import Flask
 from flask import render_template, url_for, redirect, abort, request
 import os
 import subprocess
-from flask.ext.mongoengine import MongoEngine
+#from flask.ext.mongoengine import MongoEngine
 
-db = MongoEngine()
+#db = MongoEngine()
 
 serve = Flask(__name__)
 #serve.config.from_pyfile('the-config.cfg')
-serve.config['MONGODB_SETTINGS'] = {
-    'db': 'test',
-    'host': 'localhost',
-    'port': 27017
-}
+#serve.config['MONGODB_SETTINGS'] = {
+#    'db': 'test',
+#    'host': 'localhost',
+#    'port': 27017
+#}
 
-db.init_app(serve)
+#db.init_app(serve)
 
 
 @serve.route("/")
