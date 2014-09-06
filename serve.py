@@ -123,21 +123,28 @@ def dashboard(appid):
 
 
 
-@serve.route('/run/<functionid>')
+@serve.route('/run/<functionid>/',methods=['GET'])
 def run(functionid): #need userid,appid,functionid
 	print 'something fucking happened' 	
 	print 'got here too'
 	#functionid = request.form['functionid']
 	print 'but probably not here'
-	function = Function.objects(id=functionid)
-	print '\n\n'+function+'\n\n'
-	code = function.code
+	print functionid
+	funct = None
+	for fun in Function.objects:
+		print fun.id
+		if str(fun.id) == str(functionid):
+			funct = fun
+	#print '\n\n'+function+'\n\n'
+	code = funct.code
 	params = parseCode(code)
 
-	print '\n\nparamsdoe '+params+'\n\n'
+	print '\n\nparamsdoe '+str(params)+'\n\n'
 	values = {}
 	for param in params:
-		values[param] = request.form[param]
+		values[param] = request.args.get(param)
+	
+	import textwrap
 
 	sansfirstline = '\n'.join(code.split('\n')[1:-1]) # and last row
 	sansfirstline = textwrap.dedent(sansfirstline)
@@ -149,23 +156,28 @@ def run(functionid): #need userid,appid,functionid
 		firstline += param +'='+values[param] + '\n'
 	code = firstline + sansfirstline +lastline
 	print '\n\n'+code+'\n\n'
-	
-	os.popen('rm code.py');
-	f = open('code.py','w')
+	f = open('codey.py','w')
+	f.close()
+	f = open('codey.py','w')
 	f.write(code)
 	f.close()
-	print '\n\n code.py created. \n\n'
-
-	os.popen('rm Dockerfile');
+	print '\n\n codey.py created. \n\n'
+	
 	f = open('Dockerfile','w')
-	f.write('FROM python \n ADD ./code.py /usr/src/python/code.py')
+	f.write('FROM python \n ADD ./codey.py /usr/src/python/codey.py')
 	f.close()
-	os.popen('sudo docker build -t imagedoe . & sudo docker run imagedoe code.py > out.txt')
+	import time
+	time.sleep(.5)
+	subprocess.call('sudo docker build -t imagedoe .')
+	subprocess.call('sudo docker run imagedoe codey.py > out.txt 2>&1')
 	
 	print ('\n\n Docker shit doneski. \n\n')
 
 	f = open('out.txt','r')
 	result = f.read().strip()
+	f.close()
+	
+	subprocess.call('rm out.txt')
 		
 	print '\n\n'+result+'\n\n'
 	return result
