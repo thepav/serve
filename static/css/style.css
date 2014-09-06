@@ -61,8 +61,9 @@ h1{
 	width: 50%;
 	margin-right: auto;
     margin-left: auto;
-    border: 1px solid white;
-    border-radius: 15px;
+    margin-top: 10%;
+    border: 3px solid white;
+    border-radius: 25px;
 }
 
 .link {
@@ -74,3 +75,10 @@ h1{
     text-decoration: none !important;
 }
 
+input {
+    margin-bottom: 10px !important;
+}
+
+label {
+    margin-top: 5px !important;
+}
