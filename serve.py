@@ -35,14 +35,10 @@ def auth():
 			password = request.form['password']
 
 			user = User.objects(email=email, password=password)
-<<<<<<< HEAD
 			for user in User.objects:
    				print user.name 
 
-			return str(user) +'<br>'+ email+'<br>'+password + '<br>' + User.objects()
-=======
 			return str(user) +'<br>'+ email+'<br>'+password + '<br>' + str(User.objects())
->>>>>>> fc519beb2b0461c687bb0280b9049a6812bfaef4
 			#return redirect(url_for('gallery',pk=user.id));
     	else:
 			return render_template('login_failed.html');
