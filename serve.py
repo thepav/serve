@@ -103,7 +103,6 @@ def newFunc():
 	if request.method == 'POST':
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
-		dockerImID = request.form['dockerImID']
 		name = request.form['name']
 		appdoe = App.objects(id=AppId)
 		appdoe.numberFunc += 1
