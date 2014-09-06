@@ -128,6 +128,7 @@ def run(): #need userid,appid,functionid
 	print 'something fucking happened' 	
 	if request.method == 'POST':
 		print 'got here too'
+		print request.data
 		functionid = request.form['functionid']
 		print 'but probably not here'
 		function = Function.objects(id=functionid)
