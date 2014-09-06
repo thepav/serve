@@ -101,6 +101,7 @@ def newApp():
 @serve.route('/newfunc/',methods=['POST'])
 def newFunc():
 	if request.method == 'POST':
+		userId = request.form['userid']
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		name = request.form['name']
