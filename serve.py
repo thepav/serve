@@ -90,7 +90,7 @@ def newApp():
 	if request.method == 'POST':
 		userId = request.form['userid']
 		name = request.form['name']
-		numberFunc = 0
+		numberFunc = 1
 		language = 'Python'
 		daApp = App(userId=userId, name=name, numberFunc=numberFunc,language=language)
 		daApp.save()
@@ -103,14 +103,14 @@ def newFunc():
 	if request.method == 'POST':
 		userId = request.form['userid']
 		AppId = request.form['appid']
-		code = request.form['code']
-		dockerContID = request.form['dockerContID']
+		code = request.form['code'].strip()
+		dockerImID = request.form['dockerImID']
+		name = request.form['name']
+		appdoe = App.objects(id=AppId)
+		appdoe.numberFunc += 1
 
-		function = Function(AppId=AppId, dockerContID=dockerContID) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function = Function(userId=userId, AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
-		funcId = function.id
-
-		
 
 		return redirect(url_for('gallery', pk = userId))
 	os.popen('')
@@ -118,7 +118,34 @@ def newFunc():
 
 @serve.route('/run/', methods=['GET'])
 def run(): #need userid,appid,functionid
-	return str(404)
+	
+	if request.method == 'GET':
+		functionid = request.form['functionid']
+		function = Function.objects(id=functionid)
+		code = function.code
+		params = parseCode(code)
+
+
+
+		os.popen('rm Dockerfile');
+		f = open('Dockerfile','w')
+		f.write('FROM python \n ADD ./code.py /usr/src/python/code.py')
+		f.close()
+		os.popen('sudo docker build -t imagedoe .')
+
+		return str(404)
+
+def parseCode(code):
+	import StringIO
+	buf = StringIO.StringIO(code)
+	definition = buf.readline().strip()
+	left  = definition.index('(')
+	right = definition.index(')')
+	params = definition[left+1:right]
+	params = params.replace(' ','')
+	params = params.split(',')
+
+	return params
 
 
 if __name__ == "__main__":

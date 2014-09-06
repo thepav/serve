@@ -12,6 +12,7 @@ class App(db.Document):
 class Function(db.Document):
 	userId = db.StringField(required=True)
 	AppId = db.StringField(required=True)
-	dockerContID = db.StringField(required=True)
-	#code = db.StringField(required=True)
+	dockerImID = db.StringField(required=True)
+	name = db.StringField(max_length=30)
+	code = db.StringField(required=True)
 	dependancies =  db.ListField(db.StringField(max_length=30)) #has a list of other function IDs
