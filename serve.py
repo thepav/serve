@@ -80,9 +80,9 @@ def gallery(pk):
 		appDict['name'] = app.name
 		appDict['numberFunc'] = app.numberFunc
 		appDict['language'] = app.language
+		appDict['id'] = app.id
 		app.append(appDict)
 
-	apps = [{"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}]
 	return render_template('gallery.html', apps=apps,userid=pk)
 
 @serve.route('/new_app/', methods=['POST'])

@@ -23,12 +23,12 @@
             {% for app in apps %}
                 <tr>
                     <td>{{app['name']}}</td>
-                    <td>language</td>
-                    <td>{{"a number"}}</td>
-                    <td><a class="link" href="{{app['dash']}}"><i class="fa fa-cog"> Edit settings</i></a></td>
+                    <td>{{app['language']}}</td>
+                    <td>{{app['numberFunc']}}</td>
+                    <td><a class="link" href="/dash/{{app['id']}}"><i class="fa fa-cog"> Edit settings</i></a></td>
                 </tr>
             {% endfor %}
-            <tr><td style="background-color:#ecf0f1"></td><td colspan="2"><a href="{{url_for('newApp')}}" class="link large gallery">+</a></td><td></td></tr>
+            <tr><td style="background-color:#ecf0f1"></td><td colspan="2"><a href="{{url_for('newApp')}}{{userid}}" class="link large gallery">+</a></td><td></td></tr>
             </table></center>
         </div>
     </div>
