@@ -47,7 +47,7 @@ def login():
 def signup():
         return render_template('signup.html')
 
-@serve.route('/new_signup/')
+@serve.route('/new_signup/', methods='POST')
 def newSignup():
 	email = request.form['email']
 	password = request.form['password']
