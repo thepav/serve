@@ -123,13 +123,13 @@ def dashboard(appid):
 
 
 
-@serve.route('/run/', methods=['POST'])
-def run(): #need userid,appid,functionid
+@serve.route('/run/<functionid>')
+def run(functionid): #need userid,appid,functionid
 	print 'something fucking happened' 	
 	if request.method == 'POST':
 		print 'got here too'
 		print request.data
-		functionid = request.form['functionid']
+		#functionid = request.form['functionid']
 		print 'but probably not here'
 		function = Function.objects(id=functionid)
 		print '\n\n'+function+'\n\n'
