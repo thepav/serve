@@ -34,12 +34,14 @@ def auth():
 			email = request.form['email']
 			password = request.form['password']
 
-			user = User.objects(email=email, password=password)
+			dauser = None
 			for user in User.objects:
-   				print user.name 
+   				print user.name + ',' + user.email + ',' + user.password
+   				if user.email == email and user.password == password:
+   					dauser = user
 
-			return str(user) +'<br>'+ email+'<br>'+password + '<br>' + str(User.objects())
-			#return redirect(url_for('gallery',pk=user.id));
+#			return str(dauser) +'<br>'+ email+'<br>'+password + '<br>' + str(User.objects())
+			return redirect(url_for('gallery',pk=dauser.id));
     	else:
 			return render_template('login_failed.html');
 @serve.route('/login/')
