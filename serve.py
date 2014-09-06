@@ -28,7 +28,7 @@ def hello():
  	stuff2 = stuff2 + str('<br><br><br>') + os.popen('ls').read()
 	return render_template('index.html', stuff=stuff2)
 
-@serve.route("/auth/", methods='POST')
+@serve.route("/auth/", methods=['POST'])
 def auth():
 	if request.method == 'POST':
 			email = request.form['email']
