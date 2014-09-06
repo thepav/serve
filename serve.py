@@ -81,7 +81,7 @@ def gallery(pk):
 		appDict['numberFunc'] = app.numberFunc
 		appDict['language'] = app.language
 		appDict['id'] = app.id
-		app.append(appDict)
+		apps.append(appDict)
 
 	return render_template('gallery.html', apps=apps,userid=pk)
 

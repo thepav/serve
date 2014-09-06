@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
@@ -28,7 +29,16 @@
                     <td><a class="link" href="/dash/{{app['id']}}"><i class="fa fa-cog"> Edit settings</i></a></td>
                 </tr>
             {% endfor %}
-            <tr><td style="background-color:#ecf0f1"></td><td colspan="2"><a href="{{url_for('newApp')}}{{userid}}" class="link large gallery">+</a></td><td></td></tr>
+            <tr><td style="background-color:#ecf0f1"></td><td colspan="2"><a href="#" class="link large gallery" onclick="new_app()">+</a></td><td></td></tr>
+            <script type="text/javascript">
+                function new_app() {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{url_for('newApp')}}",
+                        data: {userid: "{{userid}}", name: "new_function"}
+                    })
+                }
+            </script>
             </table></center>
         </div>
     </div>
