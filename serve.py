@@ -31,7 +31,7 @@ def hello():
 @serve.route("/auth/", methods='POST')
 def auth():
 	if request.method == 'POST':
-        	email = request.form['email']
+			email = request.form['email']
 			password = request.form['password']
 			name = request.form['name']
 			user = User(email=email, password=password,name=name)
