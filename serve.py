@@ -39,9 +39,11 @@ def auth():
    				print user.name + ',' + user.email + ',' + user.password
    				if user.email == email and user.password == password:
    					dauser = user
-
+   			if dauser == None:
+   				return render_template('login_failed.html');
+   			else:
 #			return str(dauser) +'<br>'+ email+'<br>'+password + '<br>' + str(User.objects())
-			return redirect(url_for('gallery',pk=dauser.id));
+				return redirect(url_for('gallery',pk=dauser.id));
     	else:
 			return render_template('login_failed.html');
 @serve.route('/login/')
