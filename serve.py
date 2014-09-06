@@ -75,12 +75,35 @@ def newSignup():
 def gallery(pk):
 	# give me something like this, where apps are all of the user's active apps
 	apps = [{"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}, {"name":"test", "url": "/"+str(pk)+"/test", "dash":"/dash/"+str(pk)+"/test"}]
-	return render_template('gallery.html', apps=apps)
+	return render_template('gallery.html', apps=apps,userid=pk)
 
-@serve.route('/new_app/', methods=['GET', 'POST'])
+@serve.route('/new_app/', methods=['POST'])
 def newApp():
-	return render_template("login.html")
+	if request.method == 'POST':
+		userId = request.form['userid']
+		name = request.form['name']
+		numberFunc = 0
+		language = 'Python'
+		daApp = App(userId=userId, name=name, numberFunc=numberFunc,language=language)
+		daApp.save()
+		return redirect(url_for('gallery', pk = userId))
+	else:
+		return str(404)
 
+@serve.route('/newfunc/<userid>/<appid>/<functionid>/',methods=['POST'])
+def newFunc(userid,appid,functionid):
+	if request.method == 'POST':
+		AppId = request.form['appid']
+		code = request.form['code']
+		daApp = App(userId=userId, name=name, numberFunc=numberFunc,language=language)
+		daApp.save()
+		return redirect(url_for('gallery', pk = userId))
+	os.popen('')
+
+
+@serve.route('/run/<userid>/<appid>/<functionid>/', methods=['GET'])
+def run(userid,appid,functionid):
+	return str(404)
 
 
 if __name__ == "__main__":
