@@ -144,9 +144,6 @@ def run(functionid): #need userid,appid,functionid
 			funct = fun
 	#print '\n\n'+function+'\n\n'
 	code = funct.code
-	function = Function.objects(id=str(functionid))
-	print '\n\n'+function+'\n\n'
-	code = function.code
 	params = parseCode(code)
 
 	print '\n\nparamsdoe '+str(params)+'\n\n'
@@ -172,7 +169,9 @@ def run(functionid): #need userid,appid,functionid
 	f.close()
 	print '\n\n codey.py created. \n\n'
 	
-	subprocess.call('sudo docker run -v /home/azureuser/serve/codey.py:/usr/src/python/codey.py python python codey.py > out.txt 2>&1')
+	subprocess.call('pwd')	
+
+	subprocess.call('sudo docker run -v /home/azureuser/serve/codey.py:/usr/src/python/codey.py python python /usr/src/python/codey.py > out.txt 2>&1', shell=True)
 	
 	print ('\n\n Docker shit doneski. \n\n')
 
@@ -180,10 +179,9 @@ def run(functionid): #need userid,appid,functionid
 	result = f.read().strip()
 	f.close()
 	
-	subprocess.call('rm out.txt')
 		
 	print '\n\n'+result+'\n\n'
-	return result
+	return str(result)
 
 def parseCode(code):
 	import StringIO
