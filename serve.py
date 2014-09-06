@@ -36,7 +36,7 @@ def auth():
 
 			user = User.objects(email=email, password=password)
 
-			return redirect(url_for('gallery'),pk=user._id);
+			return redirect(url_for('gallery',pk=user.id));
     	else:
 			return render_template('login_failed.html');
 @serve.route('/login/')
@@ -64,9 +64,8 @@ def newSignup():
 	else:
 		redirect(url_for('signup'))
 		
-@serve.route('/gallery/<pk>')
+@serve.route('/gallery/<pk>',)
 def gallery(pk):
-	print "FUCK MEEE"
 	return str(pk);
 
 
