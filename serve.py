@@ -101,7 +101,6 @@ def newApp():
 @serve.route('/newfunc/',methods=['POST'])
 def newFunc():
 	if request.method == 'POST':
-		userId = request.form['userid']
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		dockerImID = request.form['dockerImID']
@@ -109,7 +108,7 @@ def newFunc():
 		appdoe = App.objects(id=AppId)
 		appdoe.numberFunc += 1
 
-		function = Function(userId=userId, AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function = Function( AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))

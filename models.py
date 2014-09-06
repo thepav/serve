@@ -10,7 +10,6 @@ class App(db.Document):
 	numberFunc = db.IntField(required=True)
 	language = db.StringField(required=True,max_length=50)
 class Function(db.Document):
-	userId = db.StringField(required=True)
 	AppId = db.StringField(required=True)
 	dockerImID = db.StringField(required=True)
 	name = db.StringField(max_length=30)
