@@ -4,18 +4,31 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/landingstyles.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
     <meta charset="UTF-8">
     <title>Serve</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container background">
         <div class="col-md-6 col-md-offset-3">
-            This is where your apps would go, IF YOU HAD ANY!
-            <div class="app-highlight">
-                This is an example app-div thing.
-                <a href="/app/123idnumber">This would link to the app</a>
-            </div>
+            <center><h2>Your active apps</h2>
+            <a class="link" href="{{url_for('newApp')}}">(or create a new one)</a></center>
+            <table class="table">
+            <th>Name</th><th>Dashboard</th><th>Live</th>
+            {% for app in apps %}
+                <tr>
+                    <td>{{app['name']}}</td>
+                    <td><a class="link" href="{{app['dash']}}"><i class="fa fa-cog"></i></a></td>
+                    <td><a class="link" href="{{app['url']}}">{{app['url']}}</a></td>
+                </tr>
+            {% endfor %}
+            </table>
         </div>
     </div>
+    <div class='fullscreen'></div>
+    <video autoplay loop poster="{{url_for('static', filename='images/header.jpg')}}" id="bgvid" muted> 
+    </video>
 </body>
 </html>
