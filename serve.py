@@ -62,7 +62,7 @@ def newSignup():
 		
 @serve.route('/gallery/<pk>')
 def dashboard(pk):
-	return pk;
+	return str(pk);
 
 
 
