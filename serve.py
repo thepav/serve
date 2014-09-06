@@ -51,11 +51,15 @@ def signup():
 def newSignup():
 	if request.method == 'POST':
 		email = request.form['email']
+		print '1'
 		password = request.form['password']
+		print '2'
 		name = request.form['name']
+		print '3'
 		user = User(email=email, password=password,name=name)
+		print '4'
 		user.save()
-
+		print '5'
 		return redirect(url_for('gallery'),pk=user._id);
 	else:
 		redirect(url_for('signup'))
