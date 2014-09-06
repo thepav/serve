@@ -158,4 +158,6 @@ label {
 .editor {
     min-height: 300px;
     text-align: left;
+    width: 500px;
+    float: right;
 }
