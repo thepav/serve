@@ -123,14 +123,19 @@ def dashboard(appid):
 
 
 
-@serve.route('/run/', methods=['GET'])
+@serve.route('/run/', methods=['POST'])
 def run(): #need userid,appid,functionid
-	
-	if request.method == 'GET':
+	print 'something fucking happened' 	
+	if request.method == 'POST':
+		print 'got here too'
 		functionid = request.form['functionid']
+		print 'but probably not here'
 		function = Function.objects(id=functionid)
+		print '\n\n'+function+'\n\n'
 		code = function.code
 		params = parseCode(code)
+
+		print '\n\nparamsdoe '+params+'\n\n'
 		values = {}
 		for param in params:
 			values[param] = request.form[param]
@@ -144,22 +149,26 @@ def run(): #need userid,appid,functionid
 		for param in params:
 			firstline += param +'='+values[param] + '\n'
 		code = firstline + sansfirstline +lastline
-
+		print '\n\n'+code+'\n\n'
+		
 		os.popen('rm code.py');
 		f = open('code.py','w')
 		f.write(code)
 		f.close()
-
+		print '\n\n code.py created. \n\n'
 
 		os.popen('rm Dockerfile');
 		f = open('Dockerfile','w')
 		f.write('FROM python \n ADD ./code.py /usr/src/python/code.py')
 		f.close()
 		os.popen('sudo docker build -t imagedoe . & sudo docker run imagedoe code.py > out.txt')
+		
+		print ('\n\n Docker shit doneski. \n\n')
 
 		f = open('out.txt','r')
 		result = f.read().strip()
-
+		
+		print '\n\n'+result+'\n\n'
 		return result
 	else:
 		return 'hi there chucky!'
