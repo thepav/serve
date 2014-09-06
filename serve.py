@@ -161,6 +161,8 @@ def run(): #need userid,appid,functionid
 		result = f.read().strip()
 
 		return result
+	else:
+		return 'hi there chucky!'
 
 def parseCode(code):
 	import StringIO
