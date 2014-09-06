@@ -19,15 +19,16 @@
         <div class="col-md-6 col-md-offset-3 gallery">
             <center><h2>Your active apps</h2>
             <center><table class="gallery">
-            <th>Name</th><th>Dashboard</th><th>Live URL</th>
+            <th>Name</th><th>Language</th><th>Functions</th><th>Dashboard</th>
             {% for app in apps %}
                 <tr>
                     <td>{{app['name']}}</td>
+                    <td>language</td>
+                    <td>{{"a number"}}</td>
                     <td><a class="link" href="{{app['dash']}}"><i class="fa fa-cog"> Edit settings</i></a></td>
-                    <td><a class="link" href="{{app['url']}}">{{app['url']}}</a></td>
                 </tr>
             {% endfor %}
-            <tr><td style="background-color:#ecf0f1"></td><td><a href="{{url_for('newApp')}}" class="link large gallery">+</a></td><td></td></tr>
+            <tr><td style="background-color:#ecf0f1"></td><td colspan="2"><a href="{{url_for('newApp')}}" class="link large gallery">+</a></td><td></td></tr>
             </table></center>
         </div>
     </div>
