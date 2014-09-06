@@ -116,10 +116,14 @@ def newFunc():
 @serve.route('/dash/<appid>', methods=['GET', 'POST'])
 def dashboard(appid):
 	if request.method == 'GET':
+		theapp = None
 		for app in App.objects:
 			if app.id == appid:
 				theapp = app
-		return render_template("dashboard.html", app=app, functions=Function(appid=app.id))
+	if theapp is not None:
+		return render_template("dashboard.html", app=theapp, functions=Function(appid=theapp.id))
+	else:
+		raise AssertionError
 
 
 
