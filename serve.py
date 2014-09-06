@@ -60,7 +60,7 @@ def newSignup():
 		print '4'
 		user.save()
 		print 'done signup'
-		return redirect(url_for('gallery',pk=user._id));
+		return redirect(url_for('gallery',pk=user.id));
 	else:
 		redirect(url_for('signup'))
 		
