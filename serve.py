@@ -107,7 +107,7 @@ def newFunc():
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 
-		function = Function( AppId=AppId, dockerImID=dockerImID, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function = Function( AppId=AppId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
