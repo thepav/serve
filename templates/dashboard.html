@@ -89,8 +89,8 @@
 
                 <!-- Intro -->
                     <section id="top" class="one dark cover">
-                        <form method="post" action="{{url_for('newFunc')}}">
-                            <textarea name="code">
+                        <form  id="newfunc" method="post" action="{{url_for('newFunc')}}">
+                            <textarea name="code" form="newfunc">
                             </textarea>
                             <input type="text" placeholder="name" name="name">
                             <input type="hidden" value="{{app.id}}" name="appid">
