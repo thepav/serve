@@ -119,7 +119,7 @@ def dashboard(appid):
 		for app in App.objects:
 			if app.id == appid:
 				theapp = app
-		return render_template("dashboard.html", app=app)
+		return render_template("dashboard.html", app=app, functions=Function(appid=app.id))
 
 
 

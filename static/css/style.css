@@ -155,6 +155,7 @@ label {
     font-size: 20pt;
 }
 
-#editor {
+.editor {
     min-height: 300px;
+    text-align: left;
 }
