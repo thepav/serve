@@ -155,7 +155,7 @@ def payment():
 	pass
 
 @serve.route('/venmo/')
-def payment(venmo_challenge):
+def venmo(venmo_challenge):
 	return venmo_challenge
 	#access_token = stuff
 	#q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
