@@ -184,10 +184,10 @@ def updateCode():
 
 @serve.route('/options/<userId>', methods=["GET"])
 def options(userId):
-	return render_template("buy.html")
+	return render_template("buy.html", userId = userId)
 
 @serve.route('/pay/<userId>')
-def payment():
+def payment(userId):
 	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token&uri_redirect=%s".format("http://serveapp.cloudapp.net/venmo/%s".format(userId)));
 
 @serve.route('/venmo/<userId>')
