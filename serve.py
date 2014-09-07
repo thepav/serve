@@ -117,8 +117,7 @@ def newFunc():
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		name = request.form['name']
-		types = request.form['types']
-		types = types.strip().split(',')
+		types = []
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 		appdoe.save()
