@@ -227,18 +227,11 @@ def run(functionid): #need userid,appid,functionid
 
 	firstline = ''
 	count = 0
-<<<<<<< HEAD
 
 	for param in params:
 		firstline += param +"="+types[count]+"('"+values[param] + "')\n"
 		count+=1
 		
-=======
-	for param in params:
-		firstline += param +"="+types[count]+"('"+values[param] + "')\n"
-		count+=1
-
->>>>>>> 92dcddb758bc86e48cb08e20bc8f3faa2d0c2741
 	code = firstline + sansfirstline +lastline
 	print '\ncode:\n'+code+'\n\n'
 
