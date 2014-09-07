@@ -213,7 +213,7 @@ section {
 	border-color: black;
 	border: 3px;
 	border-style: solid;
-	width: 28%;
+	width: 25%;
 	color: black;	
 moz-border-radius:10px;  /* for Firefox */
         -webkit-border-radius:10px; /* for Webkit-Browsers */
@@ -233,3 +233,4 @@ moz-border-radius:10px;  /* for Firefox */
 .boxthing {
     margin-left: 10px;
 }
+
