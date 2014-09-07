@@ -173,20 +173,15 @@ def payment():
 	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
 	return response.read()
 
-@serve.route('/v1/oauth/authorize', methods=['POST'])
+@serve.route('/venmo/', methods=['POST'])
 def venmo():
-	q = {"access_token": config.access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
+	q = {"access_token": request.form['access_token'], "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
 	data = urllib.urlencode(q)
 	url = "https://api.venmo.com/v1/payments"
 	myreq = urllib2.Request(url, data)
 	response = urllib2.urlopen(myreq)
 	html = response.read()
 	return html
-
-@serve.route('/venmo/')
-def ven():
-	return request.url.split("=")[1]
-
 
 @serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
