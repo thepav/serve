@@ -6,7 +6,9 @@ from flask.ext.mongoengine import MongoEngine
 from models import *
 import config
 import requests
+import sendgrid
 db = MongoEngine()
+sg = sendgrid.SendGridClient(config.sendgrid_user, config.sendgrid_pw)
 
 serve = Flask(__name__)
 #serve.config.from_pyfile('the-config.cfg')
@@ -61,12 +63,19 @@ def newSignup():
 		email = request.form['email']
 		password = request.form['password']
 		name = request.form['name']
-		user = User(email=email, password=password,name=name,paid=False)
+		user = User(email=email, password=password,name=name,paid=1)
+
 		user.save()
+		message = sendgrid.Mail()
+		message.add_to(email)
+		message.set_subject("Welcome to Serve!")
+		message.set_html(render_template("welcomemail.html", name=name))
+		message.set_from("Serve Team (team@serveapp.cloudapp.com)")
+		a, b = sg.send(message)
 		return redirect(url_for('gallery',pk=user.id));
 	else:
 		redirect(url_for('signup'))
-		
+
 @serve.route('/gallery/<pk>',)
 def gallery(pk):
 	# give me something like this, where apps are all of the user's active apps
@@ -171,7 +180,7 @@ def updateCode():
 	else:
 		return 404
 
-@serve.route('/pay/')
+@serve.route('/pay/<userId>')
 def payment():
 	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token");
 
@@ -179,7 +188,12 @@ def payment():
 def venmo():
 	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
 	r = requests.post("https://api.venmo.com/v1/payments", data=q)
-	print(r.json())
+	message = sendgrid.Mail()
+	message.add_to(email)
+	message.set_subject("We're Serving you even better!")
+	message.set_html(render_template("purchasemail.html", name=name))
+	message.set_from("Serve Team (team@serveapp.cloudapp.com)")
+	a, b = sg.send(message)
 	return redirect(url_for('gallery', pk=5)) 
 
 @serve.route('/run/<functionid>/', methods=['GET'])
