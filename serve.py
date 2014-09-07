@@ -182,6 +182,10 @@ def updateCode():
 	else:
 		return 404
 
+@serve.route('/options/<userId')
+def options():
+	return render_template("buy.html")
+
 @serve.route('/pay/<userId>')
 def payment():
 	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token&uri_redirect=%s".format("http://serveapp.cloudapp.net/venmo/%s".format(userId)));
