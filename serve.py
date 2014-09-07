@@ -183,7 +183,7 @@ def updateCode():
 		return 404
 
 @serve.route('/options/<userId>', methods=["GET"])
-def options():
+def options(userId):
 	return render_template("buy.html")
 
 @serve.route('/pay/<userId>')
