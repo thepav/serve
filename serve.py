@@ -108,10 +108,12 @@ def newFunc():
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		name = request.form['name']
+		types = request.form['types']
+		types = types.strip().split(',')
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 		appdoe.save()
-		function = Function(AppId=AppId, userId=userId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function = Function(AppId=AppId, userId=userId, name=name, code=code, types=types) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
@@ -144,6 +146,7 @@ def run(functionid): #need userid,appid,functionid
 			funct = fun
 	#print '\n\n'+function+'\n\n'
 	code = funct.code
+	types = funct.types
 	params = parseCode(code)
 
 	print '\n\nparamsdoe '+str(params)+'\n\n'
@@ -159,12 +162,16 @@ def run(functionid): #need userid,appid,functionid
 	lastline = lastline.replace('return', 'print')
 	lastline = textwrap.dedent(lastline)
 	print 'last:'+lastline
-	if sansfirstline.strip == '':
+	if sansfirstline.strip() == '':
 		sansfirstline = ''
 
 	firstline = ''
+	count = 0
+
 	for param in params:
-		firstline += param +"='"+values[param] + "'\n"
+		firstline += param +"="+types[count]+"('"+values[param] + "')\n"
+		count+=1
+		
 	code = firstline + sansfirstline +lastline
 	print '\ncode:\n'+code+'\n\n'
 
