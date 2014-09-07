@@ -120,7 +120,7 @@
 
 		a:hover
 		{
-			color: #E27689;
+			color: #3498db;
 			border-bottom-color: rgba(255,255,255,0);
 		}
 
@@ -765,8 +765,7 @@
 		
 			#main > section.one
 			{
-				background-color: #81918E;
-				background-image: url('../images/banner.jpg');
+				background-image: url('../images/pic01.jpg');
 			}
 
 			#main > section.two

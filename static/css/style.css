@@ -156,8 +156,25 @@ label {
 }
 
 .editor {
-    min-height: 300px;
+    min-height: 400px;
+    max-height: 1000px;
     text-align: left;
-    width: 500px;
-    float: right;
+    width: 50%;
+    float: left;
+    margin-left: 10%;
 }
+
+.controls {
+    float: right;
+    width: 25%;
+}
+
+section {
+    min-height: 100% !important;
+}
+
+.bottom {
+    margin-top: 35%;
+    margin-left: -45%;
+}
+
