@@ -157,21 +157,28 @@ def run(functionid): #need userid,appid,functionid
 	sansfirstline = textwrap.dedent(sansfirstline)
 	lastline = code.split('\n')[-1]
 	lastline = lastline.replace('return', 'print')
+	lastline = textwrap.dedent(lastline)
+	print 'last:'+lastline
+	if sansfirstline.strip == '':
+		sansfirstline = ''
 
 	firstline = ''
 	for param in params:
-		firstline += param +'='+values[param] + '\n'
+		firstline += param +"='"+values[param] + "'\n"
 	code = firstline + sansfirstline +lastline
-	print '\n\n'+code+'\n\n'
+	print '\ncode:\n'+code+'\n\n'
 
 	f = open('codey.py','w')
 	f.write(code)
 	f.close()
+
+	f = open('codey.py','r')
+	print 'file: \n'+f.read();
 	print '\n\n codey.py created. \n\n'
 	
 	subprocess.call('pwd')	
 
-	subprocess.call('sudo docker run -v /home/azureuser/serve/codey.py:/usr/src/python/codey.py python python /usr/src/python/codey.py > out.txt 2>&1', shell=True)
+	subprocess.call('sudo docker run -v /home/azureuser/serve/codey.py:/usr/src/python/codey.py python:2.7.7 python /usr/src/python/codey.py > out.txt 2>&1', shell=True)
 	
 	print ('\n\n Docker shit doneski. \n\n')
 
