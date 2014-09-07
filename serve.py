@@ -178,8 +178,8 @@ def venmo():
 	q = {"access_token": access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
 	data = urllib2.urlencode(q)
 	url = "https://api.venmo.com/v1/payments"
-	request = urllib2.Request(url, data)
-	response = urllib2.urlopen(request)
+	myreq = urllib2.Request(url, data)
+	response = urllib2.urlopen(myreq)
 	html = response.read()
 	return html
 
