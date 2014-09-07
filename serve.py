@@ -184,16 +184,18 @@ def updateCode():
 
 @serve.route('/pay/<userId>')
 def payment():
-	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token");
+	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token&uri_redirect=%s".format("http://serveapp.cloudapp.net/venmo/%s".format(userId)));
 
-@serve.route('/venmo')
+@serve.route('/venmo/<userId>')
 def venmo():
 	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
 	r = requests.post("https://api.venmo.com/v1/payments", data=q)
+	user = User.objects(user.id = userId)
+
 	message = sendgrid.Mail()
-	message.add_to(email)
+	message.add_to(user.email)
 	message.set_subject("We're Serving you even better!")
-	message.set_html(render_template("purchasemail.html", name=name))
+	message.set_html(render_template("purchasemail.html", name=user.name))
 	message.set_from("Serve Team (team@serveapp.cloudapp.com)")
 	a, b = sg.send(message)
 	return redirect(url_for('gallery', pk=5)) 
