@@ -88,8 +88,10 @@ def gallery(pk):
 		appDict['language'] = app.language
 		appDict['id'] = app.id
 		apps.append(appDict)
-	user = User.objects(id=pk)
-
+	user = None
+	for us in  User.objects(id=pk):
+		if str(us.id) == str(pk):
+			user = us
 
 	return render_template('gallery.html', apps=apps,userid=pk, user=user,numActApps = len(apps), numAppAvail=(int(user.paid) * 5))
 

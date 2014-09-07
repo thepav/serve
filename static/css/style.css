@@ -209,8 +209,23 @@ section {
 	
 }
 .info-panel{
-	height: 80%;
+	min-height:400px;;
 	border-color: black;
 	border: 3px;
 	border-style: solid;
+	width: 25%;
+	color: black;	
+moz-border-radius:10px;  /* for Firefox */
+        -webkit-border-radius:10px; /* for Webkit-Browsers */
+        border-radius:10px; /* regular */
+	float: left;
+	margin-left: 90px;
+}
+.todaright{
+	width:70%;
+	margin-right: -20px;
+	padding-left: 0px;	
+}
+#lower_container{
+	margin-top: 60px;
 }
