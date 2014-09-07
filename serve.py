@@ -156,14 +156,13 @@ def payment():
 
 @serve.route('/venmo')
 def venmo():
-	return request.url.split("=")[1]
-	#access_token = stuff
-	#q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
-	#data = urllib.urlencode(q)
-	#url = https://api.venmo.com/v1/payments
-	#request = urllib2.Request(url, data)
-	#response = urllib2.urlopen(request)
-    #html = response.read()
+	access_token = request.url.split("=")[1]
+	q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
+	data = urllib.urlencode(q)
+	url = "https://api.venmo.com/v1/payments"
+	request = urllib2.Request(url, data)
+	response = urllib2.urlopen(request)
+    html = response.read()
 
 
 @serve.route('/run/<functionid>/', methods=['GET'])
