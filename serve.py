@@ -182,7 +182,7 @@ def updateCode():
 	else:
 		return 404
 
-@serve.route('/options/<userId')
+@serve.route('/options/<userId>')
 def options():
 	return render_template("buy.html")
 
