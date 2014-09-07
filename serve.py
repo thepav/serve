@@ -173,9 +173,9 @@ def updateCode():
 def payment():
 	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token");
 
-@serve.route('/venmo/', methods=['POST'])
+@serve.route('/venmo', methods=['GET'])
 def venmo():
-	q = {"access_token": request.form['access_token'], "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
+	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
 	data = urllib.urlencode(q)
 	url = "https://api.venmo.com/v1/payments"
 	myreq = urllib2.Request(url, data)
