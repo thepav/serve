@@ -85,7 +85,7 @@ label {
 }
 
 .blue {
-    background: linear-gradient(#2980b9, #2980b9, #555555);
+    background: linear-gradient(#5390c9, #5390c9, #777777);
     width: 100%;
     border: 0px;
     margin: 0px;
@@ -228,4 +228,8 @@ moz-border-radius:10px;  /* for Firefox */
 }
 #lower_container{
 	margin-top: 60px;
+}
+
+.fleft {
+    float: left;
 }
