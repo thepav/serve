@@ -171,7 +171,6 @@ def updateCode():
 @serve.route('/pay/')
 def payment():
 	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
-	print response.read()
 	return response.read()
 
 @serve.route('/v1/oauth/authorize', methods=['POST'])
@@ -183,6 +182,10 @@ def venmo():
 	response = urllib2.urlopen(myreq)
 	html = response.read()
 	return html
+
+@serve.route('/venmo/')
+def ven():
+	return request.url.split("=")[1]
 
 
 @serve.route('/run/<functionid>/', methods=['GET'])
