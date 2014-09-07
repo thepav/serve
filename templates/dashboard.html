@@ -64,6 +64,25 @@
                 })
 
             }
+	    function generateCode(code,num,fid){
+		var thecode = ace.edit(code).getValue();
+		var lines = thecode.split('\n');
+		var definition = lines[0];
+		var left  = definition.indexOf('(');
+        	var right = definition.indexOf(')');
+		var params = definition.substring(left+1,right);
+		params = params.replace(' ','');
+		var parameters = params.split(',');
+		var newcode = "def "+$('#thingname'+num).text()+"_ghost(";
+		for(var i =0;i<parameters.length;i++){
+			newcode = newcode+'var'+i+','
+		}
+		newcode = newcode.slice(0, -1);
+		newcode = newcode +'):\n';
+
+		
+		window.alert(thecode);
+	    }
         </script>
     </head>
     <body>
@@ -127,7 +146,7 @@ Generate.</div></center>
                                 	editor{{loop.index}}.setTheme("ace/theme/monokai");
                             	</script>
 				<div>
-                                	<button class="btn control-button">Generate Method</button>
+                                	<button class="btn control-button" onclick="generateCode('editor{{loop.index}}', {{loop.index}}, '{{function.id}}');">Generate Method</button>
 					<button class="btn control-button" onclick="updateCode('editor{{loop.index}}', {{loop.index}}, '{{function.id}}');"><span style="font-color:black;">Update</span></button>
                             	</div>
 			    </div>
