@@ -4,6 +4,7 @@ class User(db.Document):
     email = db.StringField(required=True)
     password = db.StringField(max_length=50, required=True)
     name = db.StringField(max_length=50)
+    paid = db.BooleanField()
 class App(db.Document):
 	userId = db.StringField(required=True)
 	name = db.StringField(max_length=50, required=True)
