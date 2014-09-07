@@ -147,17 +147,23 @@ def updateCode():
 		code = request.form['text']
 		print 'update4'
 		types = request.form['types']
-		print 'update5'
-		types = types.strip().split(',')	
+		print types
+		types = types.strip().split(',')
+		print 'update6'	
 		func = None #hacky way to deal with stringification
 		for funky in Function.objects:
 			if str(funky.id) == str(fid):
 				func = funky
+		print 'update7'
 		func.types = types
+		print func.types
 		func.code = code
+		print 'update9'
 		func.name = newName
+		print 'update10'
 		func.save()
-		return True
+		print 'update11'
+		return 200
 	else:
 		return 404
 
@@ -166,7 +172,7 @@ def payment():
 	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
 	return response.read()
 
-@serve.route('/v1/oauth/authorize', methods=['POST'])
+@serve.route('/v1/oauth/authorize/')
 def venmo():
 	access_token = request.url.split("=")[1]
 	q = {"access_token": access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
