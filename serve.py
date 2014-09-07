@@ -4,6 +4,7 @@ import os
 import subprocess
 from flask.ext.mongoengine import MongoEngine
 from models import *
+import config
 import urllib2
 
 db = MongoEngine()
@@ -162,18 +163,19 @@ def updateCode():
 
 @serve.route('/pay/')
 def payment():
-	pass
+	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
+	return response.read()
 
 @serve.route('/venmo')
 def venmo():
-	return request.url.split("=")[1]
-	#access_token = stuff
-	#q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
-	#data = urllib.urlencode(q)
-	#url = https://api.venmo.com/v1/payments
-	#request = urllib2.Request(url, data)
-	#response = urllib2.urlopen(request)
-    #html = response.read()
+	access_token = request.url.split("=")[1]
+	q = {"access_token": access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
+	data = urllib2.urlencode(q)
+	url = "https://api.venmo.com/v1/payments"
+	request = urllib2.Request(url, data)
+	response = urllib2.urlopen(request)
+	html = response.read()
+	return html
 
 
 @serve.route('/run/<functionid>/', methods=['GET'])
