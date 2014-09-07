@@ -6,6 +6,7 @@ from flask.ext.mongoengine import MongoEngine
 from models import *
 import config
 import urllib2
+import urllib
 
 db = MongoEngine()
 
@@ -172,11 +173,10 @@ def payment():
 	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
 	return response.read()
 
-@serve.route('/v1/oauth/authorize/')
+@serve.route('/v1/oauth/authorize', methods=['POST'])
 def venmo():
-	access_token = request.url.split("=")[1]
-	q = {"access_token": access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
-	data = urllib2.urlencode(q)
+	q = {"access_token": config.access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
+	data = urllib.urlencode(q)
 	url = "https://api.venmo.com/v1/payments"
 	myreq = urllib2.Request(url, data)
 	response = urllib2.urlopen(myreq)
