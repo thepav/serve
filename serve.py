@@ -150,13 +150,13 @@ def updateCode():
 		return True
 
 
-@serve.route('/pay')
+@serve.route('/pay/')
 def payment():
 	pass
 
-@serve.route('/venmo?venmo_challenge=<venmo_challenge>')
-def venmo(venmo_challenge):
-	return venmo_challenge
+@serve.route('/venmo')
+def venmo():
+	return request.url.split("=")[1]
 	#access_token = stuff
 	#q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
 	#data = urllib.urlencode(q)
