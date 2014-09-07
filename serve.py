@@ -154,7 +154,7 @@ def updateCode():
 def payment():
 	pass
 
-@serve.route('/venmo/')
+@serve.route('/venmo?venmo_challenge=<venmo_challenge>')
 def venmo(venmo_challenge):
 	return venmo_challenge
 	#access_token = stuff
