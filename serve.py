@@ -121,28 +121,38 @@ def dashboard(appid):
 	if request.method == 'GET':
 		theapp = None
 		for app in App.objects:
-			print(app.id)
 			if str(app.id) == appid:
 				theapp = app
-	x = Function.objects(AppId=str(theapp.id))
-	pprint(list(x))
 	return render_template("dashboard.html", app=theapp, functions=Function.objects(AppId=str(theapp.id)))
 
 
-@serve.route('/updateFunc/', methods=['POST'])
+@serve.route('/updateApp/', methods=['POST'])
 def updateApp():
 	if request.method == 'POST':
 		appid = request.form['appid']
 		newName = request.form['name']
 		theapp = None #hacky way to deal with stringification
 		for app in App.objects:
-			print(app.id)
 			if str(app.id) == appid:
 				theapp = app
 		theapp.name = newName
 		theapp.save()
 		return redirect(url_for("dashboard", appid=theapp.id))
 
+@serve.route('/updateCode/', methods=['POST'])
+def updateCode():
+	if request.method == 'POST':
+		fid = request.form['fid']
+		newName = request.form['name']
+		code = request.form['text']
+		func = None #hacky way to deal with stringification
+		for funky in Function.objects:
+			if str(funky.id) == str(fid):
+				func = funky
+		func.code = code
+		func.name = newName
+		func.save()
+		return True
 
 @serve.route('/run/<functionid>/')
 def run(functionid): #need userid,appid,functionid

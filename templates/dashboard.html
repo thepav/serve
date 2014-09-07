@@ -17,6 +17,8 @@
         <script src="{{url_for('static', filename='js/skel.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/skel-layers.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/init.js')}}"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
             <link rel="stylesheet" href="{{url_for('static', filename='css/skel.css')}}" />
             <link rel="stylesheet" href="{{url_for('static', filename='css/style2.css')}}" />
@@ -42,11 +44,15 @@
                 })
             };
 
-            function nameChange(e){
-                $(e.target).replaceWith("<input ondblclick=\"myname(event);\" style='background-color:rgba(0,0,0,0.0)' type='text' value="+e.target.innerHTML+">");
-            };
+            function enterpress(event){
+                if (event.keyCode == 13){
+                    myname(event);
+                }
+            }
 
-            
+            function nameChange(e){
+                $(e.target).replaceWith("<input ondblclick=\"myname(event);\" onkeyup=\"enterpress(event);\" style='background-color:rgba(0,0,0,0.0); border:none;' type='text' value="+e.target.innerHTML+">");
+            };
         </script>
     </head>
     <body>
@@ -89,28 +95,42 @@
             <div id="main">
 
                 <!-- Intro -->
-                    <section id="top" class="one dark cover">
-                        <form  id="newfunc" method="post" action="{{url_for('newFunc')}}">
-                            <textarea name="code" form="newfunc">
-                            </textarea>
-                            <input type="text" placeholder="name" name="name">
-                            <input type="hidden" value="{{app.id}}" name="appid">
-                            <input type="hidden" value="{{app.userId}}" name="userid">
-                            <input type="submit">
-                        </form>
-                        
-                    </section>
                     {% for function in functions %}
                         <section class="{{ loop.cycle('one dark', 'two') }}">
-                            <h2>{{function.name}}</h2>
-                            <div id="editor{{loop.index}}" class="editor u6">{{function.code}}</div>
+                            <h2 class="thingname" onclick="" >{{function.name}}</h2>
+                            <div id="editor{{loop.index}}" class="editor">{{function.code}}</div>
                             <script type="text/javascript">
                                 editor{{loop.index}} = ace.edit("editor{{loop.index}}");
                                 editor{{loop.index}}.getSession().setMode("ace/mode/{{app.language|lower}}");
+                                editor{{loop.index}}.setTheme("ace/theme/monokai");
                             </script>
+                            <div class="controls">
+                                <center><textarea>
+                                    
+                                </textarea></center>
+                                <center><textarea>
+                                    
+                                </textarea></center>
+                                <button class="btn btn-default">BUTTON!</button>
+                            </div>
+                        <button class="btn btn-default bottom" onclick="updateCode('editor{{loop.index}}', {{loop.index}}, '{{function.id}}');"><span style="font-color:black;">Update!</span></button>
                         </section>
                     {% endfor %}
                 </div>    
+
+        <script type="text/javascript">
+            function updateCode(code, num, fid){
+                var string = ace.edit(code).getValue();
+                $.ajax({
+                    method: "POST",
+                    url: "{{url_for('updateCode')}}",
+                    data: {text: string, name: $('.thingname').get(num+1).innerHTML, fid: fid},
+                    success: location.reload()
+                })
+
+            }
+        </script>
+
 
     </body>
 </html>
