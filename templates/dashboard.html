@@ -53,6 +53,17 @@
             function nameChange(e){
                 $(e.target).replaceWith("<input ondblclick=\"myname(event);\" onkeyup=\"enterpress(event);\" style='background-color:rgba(0,0,0,0.0); border:none;' type='text' value="+e.target.innerHTML+">");
             };
+
+            function updateCode(code, num, fid){
+                var string = ace.edit(code).getValue();
+                $.ajax({
+                    method: "POST",
+                    url: "{{url_for('updateCode')}}",
+                    data: {text: string, name: $('.thingname').get(num+1).innerHTML, fid: fid},
+                    success: location.reload()
+                })
+
+            }
         </script>
     </head>
     <body>
@@ -93,11 +104,10 @@
 
         <!-- Main -->
             <div id="main">
-
                 <!-- Intro -->
                     {% for function in functions %}
                         <section class="{{ loop.cycle('one dark', 'two') }}">
-                            <h2 class="thingname" onclick="" >{{function.name}}</h2>
+                            <h2 class="thingname" onclick="" contentEditable>{{function.name}}</h2>
 			    <section class='function-section'>
 			    <div id="editor{{loop.index}}" class="editor">{{function.code}}</div>
                             <script type="text/javascript">
@@ -106,10 +116,13 @@
                                 editor{{loop.index}}.setTheme("ace/theme/monokai");
                             </script>
                             <div class="controls">
-                                <center><textarea class="tags-form form-control input-group"></textarea></center>
-				<center><div id="editor_g" class="generated">none</div></center>
+                                <center><textarea class="tags-form form-control input-group" placeholder="Variable types go here in order! (comma seperated)"></textarea></center>
+				<center><div id="editor_g{{loop.index}}" class="generated">A ghost function will appear here 
+to replace the original once 
+you type the function and hit 
+Generate.</div></center>
 				<script type="text/javascript">
-                                	editor{{loop.index}} = ace.edit("editor_g");
+                                	editor{{loop.index}} = ace.edit("editor_g{{loop.index}}");
                                 	editor{{loop.index}}.getSession().setMode("ace/mode/{{app.language|lower}}");
                                 	editor{{loop.index}}.setTheme("ace/theme/monokai");
                             	</script>
@@ -122,19 +135,6 @@
                         </section>
                     {% endfor %}
                 </div>    
-
-        <script type="text/javascript">
-            function updateCode(code, num, fid){
-                var string = ace.edit(code).getValue();
-                $.ajax({
-                    method: "POST",
-                    url: "{{url_for('updateCode')}}",
-                    data: {text: string, name: $('.thingname').get(num+1).innerHTML, fid: fid},
-                    success: location.reload()
-                })
-
-            }
-        </script>
 
 
     </body>

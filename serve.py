@@ -148,7 +148,8 @@ def updateCode():
 		func.name = newName
 		func.save()
 		return True
-
+	else:
+		return 404
 
 @serve.route('/pay/')
 def payment():
