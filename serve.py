@@ -154,52 +154,65 @@ def updateCode():
 		func.save()
 		return True
 
-@serve.route('/run/<functionid>/')
+@serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
 	print 'something fucking happened' 	
 	print 'got here too'
 	#functionid = request.form['functionid']
 	print 'but probably not here'
-	function = Function.objects(id=str(functionid))
-	print '\n\n'+function+'\n\n'
-	code = function.code
+	print functionid
+	funct = None
+	for fun in Function.objects:
+		print fun.id
+		if str(fun.id) == str(functionid):
+			funct = fun
+	#print '\n\n'+function+'\n\n'
+	code = funct.code
 	params = parseCode(code)
 
-	print '\n\nparamsdoe '+params+'\n\n'
+	print '\n\nparamsdoe '+str(params)+'\n\n'
 	values = {}
 	for param in params:
-		values[param] = request.form[param]
+		values[param] = request.args.get(param)
+	
+	import textwrap
 
 	sansfirstline = '\n'.join(code.split('\n')[1:-1]) # and last row
 	sansfirstline = textwrap.dedent(sansfirstline)
 	lastline = code.split('\n')[-1]
 	lastline = lastline.replace('return', 'print')
+	lastline = textwrap.dedent(lastline)
+	print 'last:'+lastline
+	if sansfirstline.strip == '':
+		sansfirstline = ''
 
 	firstline = ''
 	for param in params:
-		firstline += param +'='+values[param] + '\n'
+		firstline += param +"='"+values[param] + "'\n"
 	code = firstline + sansfirstline +lastline
-	print '\n\n'+code+'\n\n'
-	
-	os.popen('rm code.py');
-	f = open('code.py','w')
+	print '\ncode:\n'+code+'\n\n'
+
+	f = open('codey.py','w')
 	f.write(code)
 	f.close()
-	print '\n\n code.py created. \n\n'
 
-	os.popen('rm Dockerfile');
-	f = open('Dockerfile','w')
-	f.write('FROM python \n ADD ./code.py /usr/src/python/code.py')
-	f.close()
-	os.popen('sudo docker build -t imagedoe . & sudo docker run imagedoe code.py > out.txt')
+	f = open('codey.py','r')
+	print 'file: \n'+f.read();
+	print '\n\n codey.py created. \n\n'
+	
+	subprocess.call('pwd')	
+
+	subprocess.call('sudo docker run -v /home/azureuser/serve/codey.py:/usr/src/python/codey.py python:2.7.7 python /usr/src/python/codey.py > out.txt 2>&1', shell=True)
 	
 	print ('\n\n Docker shit doneski. \n\n')
 
 	f = open('out.txt','r')
 	result = f.read().strip()
+	f.close()
+	
 		
 	print '\n\n'+result+'\n\n'
-	return result
+	return str(result)
 
 def parseCode(code):
 	import StringIO
