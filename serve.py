@@ -105,20 +105,12 @@ def newFunc():
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		name = request.form['name']
-<<<<<<< HEAD
 		types = request.form['types']
 		types = types.strip().split(',')
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 		appdoe.save()
 		function = Function(AppId=AppId, userId=userId, name=name, code=code, types=types) # STILL NEED TO WORK OUT DEPENDENCIES!
-=======
-		types = []
-		appdoe = App.objects(id=AppId)[0]
-		appdoe.numberFunc += 1
-		appdoe.save()
-		function = Function(types=types, AppId=AppId, userId=userId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
->>>>>>> 92dcddb758bc86e48cb08e20bc8f3faa2d0c2741
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
