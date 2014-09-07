@@ -190,7 +190,10 @@ def payment():
 def venmo():
 	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
 	r = requests.post("https://api.venmo.com/v1/payments", data=q)
-	user = User.objects(user.id = userId)
+	user = None
+	for us in User.objects:
+		if str(us.id) ==userId:
+			user = us
 
 	message = sendgrid.Mail()
 	message.add_to(user.email)
