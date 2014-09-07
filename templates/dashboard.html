@@ -98,22 +98,27 @@
                     {% for function in functions %}
                         <section class="{{ loop.cycle('one dark', 'two') }}">
                             <h2 class="thingname" onclick="" >{{function.name}}</h2>
-                            <div id="editor{{loop.index}}" class="editor">{{function.code}}</div>
+			    <section class='function-section'>
+			    <div id="editor{{loop.index}}" class="editor">{{function.code}}</div>
                             <script type="text/javascript">
                                 editor{{loop.index}} = ace.edit("editor{{loop.index}}");
                                 editor{{loop.index}}.getSession().setMode("ace/mode/{{app.language|lower}}");
                                 editor{{loop.index}}.setTheme("ace/theme/monokai");
                             </script>
                             <div class="controls">
-                                <center><textarea>
-                                    
-                                </textarea></center>
-                                <center><textarea>
-                                    
-                                </textarea></center>
-                                <button class="btn btn-default">BUTTON!</button>
-                            </div>
-                        <button class="btn btn-default bottom" onclick="updateCode('editor{{loop.index}}', {{loop.index}}, '{{function.id}}');"><span style="font-color:black;">Update!</span></button>
+                                <center><textarea class="tags-form form-control input-group"></textarea></center>
+				<center><div id="editor_g" class="generated">none</div></center>
+				<script type="text/javascript">
+                                	editor{{loop.index}} = ace.edit("editor_g");
+                                	editor{{loop.index}}.getSession().setMode("ace/mode/{{app.language|lower}}");
+                                	editor{{loop.index}}.setTheme("ace/theme/monokai");
+                            	</script>
+				<div>
+                                	<button class="btn control-button">Generate Method</button>
+					<button class="btn control-button" onclick="updateCode('editor{{loop.index}}', {{loop.index}}, '{{function.id}}');"><span style="font-color:black;">Update</span></button>
+                            	</div>
+			    </div>
+			    </section>
                         </section>
                     {% endfor %}
                 </div>    

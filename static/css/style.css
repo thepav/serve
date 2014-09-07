@@ -163,10 +163,17 @@ label {
     float: left;
     margin-left: 10%;
 }
+.generated{
+    min-height: 190px;
+    max-height: 1000px;
+    text-align: left;
+
+}
 
 .controls {
-    float: right;
-    width: 25%;
+    	float:left;
+	width: 25%;
+	margin-left: 50px;
 }
 
 section {
@@ -177,4 +184,27 @@ section {
     margin-top: 35%;
     margin-left: -45%;
 }
+.thingname{
+	margin-top:-40px;
+	margin-bottom:30px;
+}
+.tags-form{
+	min-height:140px;
+	text-align:left;
+	margin-bottom:30px;
+}
 
+.control-button{
+	width = 9;
+	background-color:white;
+	color:black;
+}
+.function-section{
+	height = 100%;
+	-moz-border-radius:10px;  /* for Firefox */
+	-webkit-border-radius:10px; /* for Webkit-Browsers */
+	border-radius:10px; /* regular */
+	border-style:solid;
+	border-color:white;
+	
+}
