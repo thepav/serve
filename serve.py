@@ -166,7 +166,7 @@ def payment():
 	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
 	return response.read()
 
-@serve.route('oauth/authorize/')
+@serve.route('/oauth/authorize/')
 def venmo():
 	access_token = request.url.split("=")[1]
 	q = {"access_token": access_token, "phone":config.phone, "note":"Serve payment", "amount": 2, "audience":"private"}
