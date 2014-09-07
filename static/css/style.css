@@ -230,6 +230,6 @@ moz-border-radius:10px;  /* for Firefox */
 	margin-top: 60px;
 }
 
-.fleft {
-    float: left;
+.boxthing {
+    margin-left: 10px;
 }
