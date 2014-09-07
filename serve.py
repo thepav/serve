@@ -4,7 +4,9 @@ import os
 import subprocess
 from flask.ext.mongoengine import MongoEngine
 from models import *
+import config
 import urllib2
+import urllib
 
 db = MongoEngine()
 
@@ -103,12 +105,20 @@ def newFunc():
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		name = request.form['name']
+<<<<<<< HEAD
 		types = request.form['types']
 		types = types.strip().split(',')
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 		appdoe.save()
 		function = Function(AppId=AppId, userId=userId, name=name, code=code, types=types) # STILL NEED TO WORK OUT DEPENDENCIES!
+=======
+		types = []
+		appdoe = App.objects(id=AppId)[0]
+		appdoe.numberFunc += 1
+		appdoe.save()
+		function = Function(types=types, AppId=AppId, userId=userId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
+>>>>>>> 92dcddb758bc86e48cb08e20bc8f3faa2d0c2741
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
@@ -134,39 +144,60 @@ def updateApp():
 				theapp = app
 		theapp.name = newName
 		theapp.save()
+
 		return redirect(url_for("dashboard", appid=theapp.id))
 
 @serve.route('/updateCode/', methods=['POST'])
 def updateCode():
 	if request.method == 'POST':
+		print 'update1'
 		fid = request.form['fid']
+		print 'update2'
 		newName = request.form['name']
+		print 'update3'
 		code = request.form['text']
+		print 'update4'
+		types = request.form['types']
+		print types
+		types = types.strip().split(',')
+		print 'update6'	
 		func = None #hacky way to deal with stringification
 		for funky in Function.objects:
 			if str(funky.id) == str(fid):
 				func = funky
+		print 'update7'
+		func.types = types
+		print func.types
 		func.code = code
+		print 'update9'
 		func.name = newName
+		print 'update10'
 		func.save()
-		return True
+		print 'update11'
+		return 200
+	else:
+		return 404
 
-
-@serve.route('/pay')
+@serve.route('/pay/')
 def payment():
-	pass
+	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token");
 
-@serve.route('/venmo?venmo_challenge=<venmo_challenge>')
-def venmo(venmo_challenge):
-	return venmo_challenge
-	#access_token = stuff
-	#q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
-	#data = urllib.urlencode(q)
-	#url = https://api.venmo.com/v1/payments
-	#request = urllib2.Request(url, data)
-	#response = urllib2.urlopen(request)
-    #html = response.read()
-
+@serve.route('/venmo', methods=['GET'])
+def venmo():
+	print("1")
+	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
+	print("2")
+	data = urllib.urlencode(q)
+	print(data)
+	myurl = "https://api.venmo.com/v1/payments"
+	print(myurl)
+	myreq = urllib2.Request(myurl, data)
+	print(myreq)
+	response = urllib2.urlopen(myreq)
+	print("6")
+	html = response.read()
+	print("7")
+	return html
 
 @serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
@@ -203,11 +234,18 @@ def run(functionid): #need userid,appid,functionid
 
 	firstline = ''
 	count = 0
+<<<<<<< HEAD
 
 	for param in params:
 		firstline += param +"="+types[count]+"('"+values[param] + "')\n"
 		count+=1
 		
+=======
+	for param in params:
+		firstline += param +"="+types[count]+"('"+values[param] + "')\n"
+		count+=1
+
+>>>>>>> 92dcddb758bc86e48cb08e20bc8f3faa2d0c2741
 	code = firstline + sansfirstline +lastline
 	print '\ncode:\n'+code+'\n\n'
 
