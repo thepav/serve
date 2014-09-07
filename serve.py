@@ -138,10 +138,15 @@ def updateApp():
 @serve.route('/updateCode/', methods=['POST'])
 def updateCode():
 	if request.method == 'POST':
+		print 'update1'
 		fid = request.form['fid']
+		print 'update2'
 		newName = request.form['name']
+		print 'update3'
 		code = request.form['text']
+		print 'update4'
 		types = request.form['types']
+		print 'update5'
 		types = types.strip().split(',')	
 		func = None #hacky way to deal with stringification
 		for funky in Function.objects:
