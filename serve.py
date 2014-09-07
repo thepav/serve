@@ -172,11 +172,12 @@ def updateCode():
 def payment():
 	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token");
 
-@serve.route('/venmo', methods=['GET'])
+@serve.route('/venmo')
 def venmo():
 	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
 	r = requests.post("https://api.venmo.com/v1/payments", data=q)
-	return r.json()
+	print(r.json())
+	return redirect(url_for('gallery', pk=5)) 
 
 @serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
