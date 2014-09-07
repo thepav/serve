@@ -55,11 +55,11 @@
             };
 
             function updateCode(code, num, fid){
-                var string = ace.edit(code).getValue();
+                var thecode = ace.edit(code).getValue();
                 $.ajax({
                     method: "POST",
                     url: "{{url_for('updateCode')}}",
-                    data: {text: string, name: $('.thingname').get(num).text, fid: fid},
+                    data: {text: thecode, name: $('.thingname').get(num).text, fid: fid, types: $('#types'+num)},
                     success: location.reload()
                 })
 
@@ -116,7 +116,7 @@
                                 editor{{loop.index}}.setTheme("ace/theme/monokai");
                             </script>
                             <div class="controls">
-                                <center><textarea class="tags-form form-control input-group" placeholder="Variable types go here in order! (comma seperated)"></textarea></center>
+                                <center><textarea id='types{{loop.index}}' class="tags-form form-control input-group" placeholder="Variable types go here in order! (comma seperated)"></textarea></center>
 				<center><div id="editor_g{{loop.index}}" class="generated">A ghost function will appear here 
 to replace the original once 
 you type the function and hit 
