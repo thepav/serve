@@ -15,4 +15,5 @@ class Function(db.Document):
 	AppId = db.StringField(required=True)
 	name = db.StringField(max_length=30)
 	code = db.StringField(required=True)
+	types = db.ListField(db.StringField(max_length=30))
 	dependancies =  db.ListField(db.StringField(max_length=30)) #has a list of other function IDs
