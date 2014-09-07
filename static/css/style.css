@@ -235,3 +235,6 @@ moz-border-radius:10px;  /* for Firefox */
     font-size: 18pt;
 }
 
+p {
+    color:black;
+}
