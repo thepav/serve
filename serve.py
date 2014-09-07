@@ -4,7 +4,7 @@ import os
 import subprocess
 from flask.ext.mongoengine import MongoEngine
 from models import *
-from pprint import pprint
+import urllib2
 
 db = MongoEngine()
 
@@ -59,15 +59,10 @@ def signup():
 def newSignup():
 	if request.method == 'POST':
 		email = request.form['email']
-		print '1'
 		password = request.form['password']
-		print '2'
 		name = request.form['name']
-		print '3'
-		user = User(email=email, password=password,name=name)
-		print '4'
+		user = User(email=email, password=password,name=name,paid=False)
 		user.save()
-		print 'done signup'
 		return redirect(url_for('gallery',pk=user.id));
 	else:
 		redirect(url_for('signup'))
@@ -155,6 +150,23 @@ def updateCode():
 		func.name = newName
 		func.save()
 		return True
+
+
+@serve.route('/pay')
+def payment():
+	pass
+
+@serve.route('/venmo?venmo_challenge=<venmo_challenge>')
+def venmo(venmo_challenge):
+	return venmo_challenge
+	#access_token = stuff
+	#q = {"access_token": access_token, "phone":6789845458, "note":"Serve payment", "amount": 3, "audience":"private"}
+	#data = urllib.urlencode(q)
+	#url = https://api.venmo.com/v1/payments
+	#request = urllib2.Request(url, data)
+	#response = urllib2.urlopen(request)
+    #html = response.read()
+
 
 @serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
