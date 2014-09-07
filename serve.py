@@ -177,6 +177,7 @@ def payment():
 def venmo():
 	print("1")
 	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
+	x = subprocess.call(['curl', " https://api.venmo.com/v1/payments", "-d", "access_token="+q['access_token'], "-d", "phone='"+config.phone+"'", "-d", "amount=2", "-d", "note='Serve payment'"])
 	print("2")
 	data = urllib.urlencode(q)
 	print(data)
