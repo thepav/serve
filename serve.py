@@ -135,6 +135,7 @@ def updateApp():
 				theapp = app
 		theapp.name = newName
 		theapp.save()
+
 		return redirect(url_for("dashboard", appid=theapp.id))
 
 @serve.route('/updateCode/', methods=['POST'])
@@ -170,8 +171,7 @@ def updateCode():
 
 @serve.route('/pay/')
 def payment():
-	response = urllib2.urlopen("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token")
-	return response.read()
+	return redirect("https://api.venmo.com/v1/oauth/authorize?client_id="+config.uid+"&scope=make_payments%20access_profile&response_type=token");
 
 @serve.route('/venmo/', methods=['POST'])
 def venmo():
