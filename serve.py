@@ -5,9 +5,7 @@ import subprocess
 from flask.ext.mongoengine import MongoEngine
 from models import *
 import config
-import urllib2
-import urllib
-
+import requests
 db = MongoEngine()
 
 serve = Flask(__name__)
@@ -176,21 +174,9 @@ def payment():
 
 @serve.route('/venmo', methods=['GET'])
 def venmo():
-	print("1")
 	q = {"access_token": request.url.split("=")[1], "phone":config.phone, "note":"Serve payment", "amount": "2", "audience":"private"}
-	x = subprocess.call(['curl', " https://api.venmo.com/v1/payments", "-d", "access_token="+q['access_token'], "-d", "phone='"+config.phone+"'", "-d", "amount=2", "-d", "note='Serve payment'"])
-	print("2")
-	data = urllib.urlencode(q)
-	print(data)
-	myurl = "https://api.venmo.com/v1/payments"
-	print(myurl)
-	myreq = urllib2.Request(myurl, data)
-	print(myreq)
-	response = urllib2.urlopen(myreq)
-	print("6")
-	html = response.read()
-	print("7")
-	return html
+	r = requests.post("https://api.venmo.com/v1/payments", data=q)
+	return r.json()
 
 @serve.route('/run/<functionid>/', methods=['GET'])
 def run(functionid): #need userid,appid,functionid
