@@ -182,10 +182,10 @@ def venmo():
 	data = urllib.urlencode(q)
 	print("3")
 
-	url = "https://api.venmo.com/v1/payments"
+	myurl = "https://api.venmo.com/v1/payments"
 	print("4")
 
-	myreq = urllib2.Request(url, data)
+	myreq = urllib2.Request(myurl, data)
 	print("5")
 
 	response = urllib2.urlopen(myreq)
