@@ -103,10 +103,11 @@ def newFunc():
 		AppId = request.form['appid']
 		code = request.form['code'].strip()
 		name = request.form['name']
+		types = []
 		appdoe = App.objects(id=AppId)[0]
 		appdoe.numberFunc += 1
 		appdoe.save()
-		function = Function(AppId=AppId, userId=userId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
+		function = Function(types=types, AppId=AppId, userId=userId, name=name, code=code) # STILL NEED TO WORK OUT DEPENDENCIES!
 		function.save()
 
 		return redirect(url_for('gallery', pk = userId))
@@ -140,10 +141,13 @@ def updateCode():
 		fid = request.form['fid']
 		newName = request.form['name']
 		code = request.form['text']
+		types = request.form['types']
+		types = types.strip().split(',')	
 		func = None #hacky way to deal with stringification
 		for funky in Function.objects:
 			if str(funky.id) == str(fid):
 				func = funky
+		func.types = types
 		func.code = code
 		func.name = newName
 		func.save()
@@ -181,6 +185,7 @@ def run(functionid): #need userid,appid,functionid
 			funct = fun
 	#print '\n\n'+function+'\n\n'
 	code = funct.code
+	types = funct.types
 	params = parseCode(code)
 
 	print '\n\nparamsdoe '+str(params)+'\n\n'
@@ -200,8 +205,11 @@ def run(functionid): #need userid,appid,functionid
 		sansfirstline = ''
 
 	firstline = ''
+	count = 0
 	for param in params:
-		firstline += param +"='"+values[param] + "'\n"
+		firstline += param +"="+types[count]+"('"+values[param] + "')\n"
+		count+=1
+
 	code = firstline + sansfirstline +lastline
 	print '\ncode:\n'+code+'\n\n'
 

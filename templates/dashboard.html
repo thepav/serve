@@ -59,7 +59,7 @@
                 $.ajax({
                     method: "POST",
                     url: "{{url_for('updateCode')}}",
-                    data: {text: string, name: $('.thingname').get(num+1).innerHTML, fid: fid},
+                    data: {text: string, name: $('.thingname').get(num).text, fid: fid},
                     success: location.reload()
                 })
 
