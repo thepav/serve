@@ -80,6 +80,7 @@ def newSignup():
 def gallery(pk):
 	# give me something like this, where apps are all of the user's active apps
 	apps = []
+
 	for app in App.objects(userId=pk):
 		appDict = {}
 		appDict['name'] = app.name
@@ -87,8 +88,10 @@ def gallery(pk):
 		appDict['language'] = app.language
 		appDict['id'] = app.id
 		apps.append(appDict)
+	user = User.objects(id=pk)
 
-	return render_template('gallery.html', apps=apps,userid=pk)
+
+	return render_template('gallery.html', apps=apps,userid=pk, user=user,numActApps = len(apps), numAppAvail=(int(user.paid) * 5))
 
 @serve.route('/new_app/', methods=['POST'])
 def newApp():

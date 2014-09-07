@@ -208,3 +208,9 @@ section {
 	border-color:white;
 	
 }
+.info-panel{
+	height: 80%;
+	border-color: black;
+	border: 3px;
+	border-style: solid;
+}
