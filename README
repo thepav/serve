@@ -1,5 +1,4 @@
-Serve
--------
+#Serve
 
 Introducing Serve, the hosting platform for functions. Use serve to program in the normal functional process that you used when you first started to code. If you're able to write a function, spin up a hosted function on Serve, copy and paste that function in our box, and then use our provided ghost function to replace it in your local code and call that function ON THE INTERWEBS!
 
